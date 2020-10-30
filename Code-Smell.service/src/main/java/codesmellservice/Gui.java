@@ -1,10 +1,9 @@
-package CodeSmell.Project;
+package codesmellservice;
 
 import java.awt.*;
 import java.io.*;
 import javax.swing.*;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -14,10 +13,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Gui {
+	private String excelFilePath = "Defeitos.xlsx";
 	private JFrame frame;
-	private JPanel excel = new JPanel();
-	String[][] data = new String[numofRowsExcel()][numofColumnsExcel()];
-	String[] columnNames = {"First Name", "Last Name","Sport","Vegetarian"};
+	String[][] data = new String[numofRowsExcel()-1][numofColumnsExcel()];
+	String[] columnNames = getColumnNames();
 
 	public Gui() throws IOException, ClassNotFoundException {
 
@@ -66,15 +65,15 @@ public class Gui {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				try {
-					System.out.println(data.length);
-					System.out.println(columnNames.length);
-					System.out.println(columnNames[10]);
 					JTable table = new JTable(data, columnNames);
-					JScrollPane scroll_table=new JScrollPane(table);
-					frame.add(scroll_table, BorderLayout.CENTER);
+					JScrollPane scrollTable=new JScrollPane(table);
+					frame.add(scrollTable, BorderLayout.CENTER);
 					readExcelFile();
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+					frame.revalidate();
+					frame.repaint();
 				}catch(IOException ex) {
-					System.out.println("Conas");
+					System.err.println("Erro IOEXCEPTION");
 				}
 			}
 		});
@@ -82,13 +81,15 @@ public class Gui {
 
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+
+	public void open() {
+		frame.setState(JFrame.NORMAL);
 		frame.setVisible(true);
 	}
 
 	public String[] getColumnNames() throws IOException {
 		String[] columnNamesArray = new String[numofColumnsExcel()];
-
-		String excelFilePath = "Defeitos.xlsx";
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
 		Workbook workbook = new XSSFWorkbook(inputStream);
@@ -111,21 +112,21 @@ public class Gui {
 			}
 			i++;
 		}
+		workbook.close();
+		inputStream.close();
 		return columnNamesArray;
 	}
 
 	public int numofRowsExcel() throws IOException {
-		String excelFilePath = "Defeitos.xlsx";
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
-
 		Workbook workbook = new XSSFWorkbook(inputStream);
 		Sheet firstSheet = workbook.getSheetAt(0);
-		Iterator<Row> iterator = firstSheet.iterator();
+		workbook.close();
+		inputStream.close();
 		return firstSheet.getLastRowNum()+1;
 	}
 
 	public int numofColumnsExcel() throws IOException {
-		String excelFilePath = "Defeitos.xlsx";
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
 		Workbook workbook = new XSSFWorkbook(inputStream);
@@ -133,18 +134,19 @@ public class Gui {
 		Iterator<Row> iterator = firstSheet.iterator();
 
 		Row nextRow = iterator.next();
-		Iterator<Cell> cellIterator = nextRow.cellIterator();
+		workbook.close();
+		inputStream.close();
 		return nextRow.getLastCellNum();
 	}
 
 	public void readExcelFile() throws IOException {
-		String excelFilePath = "Defeitos.xlsx";
+
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
 		Workbook workbook = new XSSFWorkbook(inputStream);
 		Sheet firstSheet = workbook.getSheetAt(0);
 		Iterator<Row> iterator = firstSheet.iterator();
-
+		iterator.next();
 		while (iterator.hasNext()) {
 			Row nextRow = iterator.next();
 			Iterator<Cell> cellIterator = nextRow.cellIterator();
@@ -155,19 +157,21 @@ public class Gui {
 
 				switch (cell.getCellType()) {
 				case Cell.CELL_TYPE_STRING:
-					//					JLabel cellStringContent = new JLabel(cell.getStringCellValue());
+
 					data[cell.getRowIndex()-1][cell.getColumnIndex()]=cell.getStringCellValue();
-					//					System.out.println(cell.getStringCellValue());
+
 					break;
 				case Cell.CELL_TYPE_BOOLEAN:
-					//					JLabel cellBooleanContent = new JLabel(Boolean.toString(cell.getBooleanCellValue()));
+
 					data[cell.getRowIndex()-1][cell.getColumnIndex()]=Boolean.toString(cell.getBooleanCellValue());
-					//					System.out.print(cell.getBooleanCellValue());
+
 					break;
 				case Cell.CELL_TYPE_NUMERIC:
-					//					JLabel cellIntContent = new JLabel(Double.toString(cell.getNumericCellValue()));
+
 					data[cell.getRowIndex()-1][cell.getColumnIndex()]=Double.toString(cell.getNumericCellValue());
-					//					System.out.print(cell.getNumericCellValue());
+
+					break;
+				default:
 					break;
 				}
 			}
@@ -179,7 +183,7 @@ public class Gui {
 	}
 
 	public void readMethodInfo(int index) {
-
+//waiting
 	}
 
 }

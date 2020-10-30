@@ -8,6 +8,27 @@
             "type": "java",
             "name": "CodeLens (Launch) - App",
             "request": "launch",
+            "mainClass": "codesmellservice.App",
+            "projectName": "Code-Smell.service"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - App",
+            "request": "launch",
+            "mainClass": "codesmell.App",
+            "projectName": "Code-Smell.service"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - App",
+            "request": "launch",
+            "mainClass": "CodeSmell.App",
+            "projectName": "Code-Smell.service"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - App",
+            "request": "launch",
             "mainClass": "CodeSmell.Project.App",
             "projectName": "Code-Smell.service"
         },

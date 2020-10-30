@@ -1,4 +1,4 @@
-package CodeSmell.Project;
+package codesmellservice;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ public class App
 {
 	public static void main(String[] args) throws IOException, ClassNotFoundException{
 		Gui gui = new Gui();
-		gui.readExcelFile();
+		gui.open();
     }
 	
 	
