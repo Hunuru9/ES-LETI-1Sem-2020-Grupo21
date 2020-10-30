@@ -66,13 +66,13 @@ public class Gui {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				try {
-					excel.setPreferredSize(new Dimension(800,800));
-					excel.setLayout(new FlowLayout());
+					System.out.println(data.length);
+					System.out.println(columnNames.length);
+					System.out.println(columnNames[10]);
 					JTable table = new JTable(data, columnNames);
-					JScrollPane scroll2=new JScrollPane(excel);
-					frame.add(scroll2, BorderLayout.CENTER);
+					JScrollPane scroll_table=new JScrollPane(table);
+					frame.add(scroll_table, BorderLayout.CENTER);
 					readExcelFile();
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 				}catch(IOException ex) {
 					System.out.println("Conas");
 				}
@@ -121,7 +121,7 @@ public class Gui {
 		Workbook workbook = new XSSFWorkbook(inputStream);
 		Sheet firstSheet = workbook.getSheetAt(0);
 		Iterator<Row> iterator = firstSheet.iterator();
-		return firstSheet.getLastRowNum();
+		return firstSheet.getLastRowNum()+1;
 	}
 
 	public int numofColumnsExcel() throws IOException {
@@ -156,21 +156,20 @@ public class Gui {
 				switch (cell.getCellType()) {
 				case Cell.CELL_TYPE_STRING:
 					//					JLabel cellStringContent = new JLabel(cell.getStringCellValue());
-					data[cell.getRowIndex()][cell.getColumnIndex()]=cell.getStringCellValue();
+					data[cell.getRowIndex()-1][cell.getColumnIndex()]=cell.getStringCellValue();
 					//					System.out.println(cell.getStringCellValue());
 					break;
 				case Cell.CELL_TYPE_BOOLEAN:
 					//					JLabel cellBooleanContent = new JLabel(Boolean.toString(cell.getBooleanCellValue()));
-					data[cell.getRowIndex()][cell.getColumnIndex()]=Boolean.toString(cell.getBooleanCellValue());
+					data[cell.getRowIndex()-1][cell.getColumnIndex()]=Boolean.toString(cell.getBooleanCellValue());
 					//					System.out.print(cell.getBooleanCellValue());
 					break;
 				case Cell.CELL_TYPE_NUMERIC:
 					//					JLabel cellIntContent = new JLabel(Double.toString(cell.getNumericCellValue()));
-					data[cell.getRowIndex()][cell.getColumnIndex()]=Double.toString(cell.getNumericCellValue());
+					data[cell.getRowIndex()-1][cell.getColumnIndex()]=Double.toString(cell.getNumericCellValue());
 					//					System.out.print(cell.getNumericCellValue());
 					break;
 				}
-				System.out.print(" - ");
 			}
 			System.out.println();
 		}
