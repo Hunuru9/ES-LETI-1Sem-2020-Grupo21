@@ -64,6 +64,7 @@ public class Gui {
 					JScrollPane scroll_table=new JScrollPane(table);
 					frame.add(scroll_table, BorderLayout.CENTER);
 					readExcelFile();
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 				}catch(IOException ex) {
 					System.out.println("Conas");
 				}
@@ -74,7 +75,6 @@ public class Gui {
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 	}
 
 	public String[] getColumnNames() throws IOException {
