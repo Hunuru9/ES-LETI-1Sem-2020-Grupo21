@@ -21,9 +21,9 @@ public class Gui {
 
 		this.excelReader = excelReader;
 		frame=new JFrame("Code Smells");
-		addFrameContent();
 		frame.setLayout(new BorderLayout());
 		frame.setResizable(true);
+		addFrameContent();
 
 	}
 	
