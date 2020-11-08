@@ -31,7 +31,14 @@ public class Gui {
 		JButton detetarDefeitos=new JButton("Detetar Defeitos");
 		painel.add(detetarDefeitos);
 		frame.add(painel, BorderLayout.NORTH);
-
+		
+		final JPanel excelPanel = new JPanel(new BorderLayout());
+		final JPanel defeitosPanel = new JPanel(new BorderLayout());
+		final JPanel showcase=new JPanel(new BorderLayout());
+		JTextField bemVindo = new JTextField("Bem Vindo!");
+		showcase.add(bemVindo);
+		frame.add(showcase, BorderLayout.CENTER);
+ 
 
 		detetarDefeitos.addActionListener(new java.awt.event.ActionListener() {
 			@Override
@@ -40,21 +47,21 @@ public class Gui {
 				texto.setEditable(true);
 				texto.setPreferredSize(new Dimension(400,400));
 				JScrollPane scroll2=new JScrollPane(texto);
-				frame.add(scroll2, BorderLayout.CENTER);
-				frame.revalidate();
-				frame.repaint();
+				defeitosPanel.add(scroll2, BorderLayout.EAST);
 
 				JList<String> lista=new JList<>();
 				JScrollPane scroll=new JScrollPane(lista);
 				scroll.setPreferredSize(new Dimension(400,400));
-				frame.add(scroll, BorderLayout.WEST);
-				frame.revalidate();
-				frame.repaint();
+				defeitosPanel.add(scroll, BorderLayout.WEST);
 				
 				JButton criarRegra=new JButton("Criar Regra");
-				frame.add(criarRegra,BorderLayout.SOUTH);
-				frame.revalidate();
-				frame.repaint();
+				defeitosPanel.add(criarRegra,BorderLayout.SOUTH);
+				
+				frame.remove(showcase);
+				frame.remove(excelPanel);
+				frame.add(defeitosPanel);
+				frame.validate();
+	            frame.repaint();
 				
 				frame.setSize(800,800);
 			}
@@ -67,9 +74,13 @@ public class Gui {
 				try {
 					JTable table = new JTable(data, columnNames);
 					JScrollPane scrollTable=new JScrollPane(table);
-					frame.add(scrollTable, BorderLayout.CENTER);
+					excelPanel.add(scrollTable, BorderLayout.CENTER);
 					readExcelFile();
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+					
+					frame.remove(showcase);
+					frame.remove(defeitosPanel);
+					frame.add(excelPanel);
 					frame.revalidate();
 					frame.repaint();
 				}catch(IOException ex) {
