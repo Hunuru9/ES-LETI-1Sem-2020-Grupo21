@@ -6,5 +6,9 @@ public class Test {
 		System.out.println("Boas broas");
 	}
 	
-	//bom dia
+	//test
+	public int soma(int a, int b) {
+		return a + b;
+	}
+	
 }
