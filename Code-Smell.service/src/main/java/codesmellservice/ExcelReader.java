@@ -27,6 +27,8 @@ public class ExcelReader {
 			this.data = new String[numofRowsExcel(inputStream,workbook,firstSheet)-1][numofColumnsExcel(inputStream,workbook,firstSheet)];
 			this.columnNames = getColumnNames(inputStream,workbook,firstSheet);
 			
+			readExcelFile(inputStream,workbook,firstSheet);
+			
 			workbook.close();
 			inputStream.close();
 		} catch (IOException e) {
@@ -65,8 +67,6 @@ public class ExcelReader {
 			if(i == 0) {
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
-					System.out.println("Oi");
-					System.out.println(cell.getStringCellValue());
 					columnNamesArray[cell.getColumnIndex()] = cell.getStringCellValue();
 				}
 			}else {
@@ -79,12 +79,8 @@ public class ExcelReader {
 
 	
 	
-	public void readExcelFile() throws IOException {
+	public void readExcelFile(FileInputStream inputStream, Workbook workbook, Sheet firstSheet) throws IOException {
 
-		FileInputStream inputStream = new FileInputStream(new File(this.fileName));
-
-		Workbook workbook = new XSSFWorkbook(inputStream);
-		Sheet firstSheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = firstSheet.iterator();
 		rowIterator.next();
 		while (rowIterator.hasNext()) {
@@ -117,9 +113,19 @@ public class ExcelReader {
 			}
 			System.out.println();
 		}
-
-		workbook.close();
-		inputStream.close();
+	}
+	
+	public double[] getMetricValues(String metric) {
+		double[] values = new double[this.data.length];
+		for(int i = 0; i!= this.columnNames.length; i++) {
+			if(this.columnNames[i].equals(metric)) {
+				for(int j = 0; j!= values.length; j++) {
+					values[j] = Double.valueOf(this.data[j][i]);
+					System.out.println(values[j]);
+				}
+			}
+		}
+		return values;
 	}
 
 

@@ -15,16 +15,24 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class Gui {
 	private String excelFilePath = "Defeitos.xlsx";
 	private JFrame frame;
+	
+	/* ExcelReader object to read and filter the data from the excel file */
 	private ExcelReader excelReader;
+	
+	/* JTable and JScrollPane to show the the data from the excel file */
+	private JTable table;
+	private JScrollPane scrollTable;
 
 	public Gui(ExcelReader excelReader) throws IOException, ClassNotFoundException {
 
 		this.excelReader = excelReader;
+		this.table = new JTable(excelReader.getData(), excelReader.getColumnNames());
+		this.scrollTable = new JScrollPane(table);
+		
 		frame=new JFrame("Code Smells");
-		addFrameContent();
 		frame.setLayout(new BorderLayout());
 		frame.setResizable(true);
-
+		addFrameContent();
 	}
 	
 	public void addFrameContent() {
@@ -74,14 +82,6 @@ public class Gui {
 		showExcel.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				JTable table = new JTable(excelReader.getData(), excelReader.getColumnNames());
-				JScrollPane scrollTable=new JScrollPane(table);
-				try {
-					excelReader.readExcelFile();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				excelPanel.add(scrollTable, BorderLayout.CENTER);
 				frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 				
