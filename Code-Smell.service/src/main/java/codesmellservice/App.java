@@ -9,7 +9,8 @@ import java.io.IOException;
 public class App 
 {
 	public static void main(String[] args) throws IOException, ClassNotFoundException{
-		Gui gui = new Gui();
+		ExcelReader excelReader = new ExcelReader("Defeitos.xlsx");
+		Gui gui = new Gui(excelReader);
 		gui.open();
     }
 	
