@@ -44,46 +44,46 @@ public class Gui {
 		frame.add(painel, BorderLayout.NORTH);
 
 		final JPanel excelPanel = new JPanel(new BorderLayout());
-		final JPanel defeitosPanel = new JPanel(new BorderLayout());
+		final JPanel defeitosPanel = new JPanel(new GridLayout());
 		final JPanel showcase=new JPanel(new BorderLayout());
-		JTextField bemVindo = new JTextField("Bem Vindo!");
+		JLabel bemVindo = new JLabel("Bem Vindo!");
+		bemVindo.setHorizontalAlignment(JLabel.CENTER);
 		showcase.add(bemVindo);
 		frame.add(showcase, BorderLayout.CENTER);
 
 
 		detetarDefeitos.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				JTextPane texto=new JTextPane();
-				texto.setEditable(true);
-				texto.setPreferredSize(new Dimension(400,400));
-				JScrollPane scroll2=new JScrollPane(texto);
-				defeitosPanel.add(scroll2, BorderLayout.EAST);
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTextPane texto=new JTextPane();
+                texto.setEditable(true);
+                texto.setPreferredSize(new Dimension(400,400));
+                JScrollPane scroll2=new JScrollPane(texto);
+                defeitosPanel.add(scroll2, BorderLayout.EAST);
 
-				JList<String> lista=new JList<>();
-				JScrollPane scroll=new JScrollPane(lista);
-				scroll.setPreferredSize(new Dimension(400,400));
-				defeitosPanel.add(scroll, BorderLayout.WEST);
+                JList<String> lista=new JList<>();
+                JScrollPane scroll=new JScrollPane(lista);
+                scroll.setPreferredSize(new Dimension(400,400));
+                defeitosPanel.add(scroll, BorderLayout.WEST);
 
-				JButton criarRegra=new JButton("Criar Regra");
-				defeitosPanel.add(criarRegra,BorderLayout.SOUTH);
+                JButton criarRegra=new JButton("Criar Regra");
+                defeitosPanel.add(criarRegra,BorderLayout.SOUTH);
 
-				frame.remove(showcase);
-				frame.remove(excelPanel);
-				frame.add(defeitosPanel);
-				frame.validate();
-				frame.repaint();
+                frame.remove(showcase);
+                frame.remove(excelPanel);
+                frame.add(defeitosPanel);
+                frame.validate();
+                frame.repaint();
 
-				frame.setSize(800,800);
-			}
+                frame.setSize(800,800);
+            }
 
-		});
+        });
 
 		showExcel.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				excelPanel.add(scrollTable, BorderLayout.CENTER);
-				frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+				
 				
 				frame.remove(showcase);
 				frame.remove(defeitosPanel);
