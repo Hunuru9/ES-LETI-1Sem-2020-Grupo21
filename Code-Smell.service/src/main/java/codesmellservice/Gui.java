@@ -13,7 +13,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Gui {
-	private String excelFilePath = "Defeitos.xlsx";
 	private JFrame frame;
 	
 	/* ExcelReader object to read and filter the data from the excel file */
