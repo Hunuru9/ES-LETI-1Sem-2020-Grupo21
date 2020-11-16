@@ -44,7 +44,7 @@ public class Gui {
 		frame.add(painel, BorderLayout.NORTH);
 
 		final JPanel excelPanel = new JPanel(new BorderLayout());
-		final JPanel defeitosPanel = new JPanel(new SpringLayout());
+		final JPanel defeitosPanel = new JPanel(new BorderLayout());
 		final JPanel showcase=new JPanel(new BorderLayout());
 		JLabel bemVindo = new JLabel("Bem Vindo!");
 		bemVindo.setHorizontalAlignment(JLabel.CENTER);
