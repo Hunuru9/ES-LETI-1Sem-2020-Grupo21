@@ -44,7 +44,7 @@ public class Gui {
 		frame.add(painel, BorderLayout.NORTH);
 
 		final JPanel excelPanel = new JPanel(new BorderLayout());
-		final JPanel defeitosPanel = new JPanel(new SpringLayout());
+		final JPanel defeitosPanel = new JPanel(new GridLayout());
 		final JPanel showcase=new JPanel(new BorderLayout());
 		JLabel bemVindo = new JLabel("Bem Vindo!");
 		bemVindo.setHorizontalAlignment(JLabel.CENTER);
@@ -83,8 +83,7 @@ public class Gui {
 		showExcel.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				excelPanel.add(scrollTable, BorderLayout.CENTER);
-				frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+				
 				
 				frame.remove(showcase);
 				frame.remove(defeitosPanel);
