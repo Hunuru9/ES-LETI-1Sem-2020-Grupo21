@@ -1,20 +1,39 @@
 package codesmellservice;
 
 public class Rule {
-	private Double metricaX;
-	private Double metricaY;
+	private double metricaX;
+	private double metricaY;
 	private String nome;
 	private String logicalOperator;
 	private String codeSmell;
+	private String metricaXOperator;
+	private String metricaYOperator;
 	
 	public Rule(String codeSmell) {
 		this.codeSmell=codeSmell;
 		nome="";
 		metricaX=0.0;
 		metricaY=0.0;
+		metricaXOperator="";
+		metricaYOperator="";
 		logicalOperator="";
 	}
 	
+	public void setmetricaXOperator(String operator) {
+		metricaXOperator=operator;
+	}
+	
+	public void setmetricaYOperator(String operator) {
+		metricaYOperator=operator;
+	}
+	
+	public String getmetricaXOperator() {
+		return metricaXOperator;
+	}
+	
+	public String getmetricaYOperator() {
+		return metricaYOperator;
+	}
 	public String getCodeSmell() {
 		return codeSmell;
 	}
@@ -27,19 +46,19 @@ public class Rule {
 		nome=s;
 	}
 		
-	public Double getMetricaX() {
+	public double getMetricaX() {
 		return metricaX;
 	}
 	
-	public void setMetricaX(Double valor) {
+	public void setMetricaX(double valor) {
 		metricaX=valor;
 	}
 
-	public Double getMetricaY() {
+	public double getMetricaY() {
 		return metricaY;
 	}
 
-	public void setMetricaY(Double valor) {
+	public void setMetricaY(double valor) {
 		metricaY=valor;
 	}
 		
@@ -54,22 +73,22 @@ public class Rule {
 	public String toString() {
 		if(codeSmell.equals("is_long_method")) {
 			if(logicalOperator!="") {
-				return "Rule: " + nome + " | " + "LOC: " + metricaX + " " + logicalOperator + " CYCLO: " + metricaY;
+				return "Rule: " + nome + " | " + "LOC" + metricaXOperator + metricaX + " " + logicalOperator + " CYCLO" + metricaYOperator + metricaY;
 			} else {
 				if(metricaX!=0.0 && metricaY==0.0) {
-					return "Rule: " + nome + " | " + "LOC: " + metricaX;
+					return "Rule: " + nome + " | " + "LOC" + metricaXOperator + metricaX;
 				}else {
-					return "Rule: " + nome + " | " + "CYCLO: " + metricaY;
+					return "Rule: " + nome + " | " + "CYCLO" + metricaYOperator + metricaY;
 				}
 			}
 		}else {
 			if(logicalOperator!="") {
-				return "Rule: " + nome + " | " + "ATFD: " + metricaX + " "  + logicalOperator +  " LAA: " + metricaY;
+				return "Rule: " + nome + " | " + "ATFD" + metricaXOperator + metricaX + " "  + logicalOperator +  " LAA" + metricaYOperator + metricaY;
 			}else {
 				if(metricaX!=0.0 && metricaY==0.0) {
-					return "Rule: " + nome + " | " + "ATFD: " + metricaX;
+					return "Rule: " + nome + " | " + "ATFD" + metricaXOperator + metricaX;
 				}else {
-					return "Rule: " + nome + " | " + "LAA: " + metricaY;
+					return "Rule: " + nome + " | " + "LAA" + metricaYOperator + metricaY;
 				}
 			}
 		}

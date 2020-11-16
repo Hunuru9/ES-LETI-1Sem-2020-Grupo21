@@ -24,7 +24,7 @@ public class Gui {
 	private JScrollPane scrollTable;
 
 	public Gui(ExcelReader excelReader) throws IOException, ClassNotFoundException {
-
+		
 		this.excelReader = excelReader;
 		this.table = new JTable(excelReader.getData(), excelReader.getColumnNames());
 		this.scrollTable = new JScrollPane(table);
