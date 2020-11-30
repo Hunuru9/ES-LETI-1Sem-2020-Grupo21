@@ -73,22 +73,22 @@ public class Rule {
 	public String toString() {
 		if(codeSmell.equals("is_long_method")) {
 			if(logicalOperator!="") {
-				return "Rule: " + nome + " | " + "LOC" + metricaXOperator + metricaX + " " + logicalOperator + " CYCLO" + metricaYOperator + metricaY;
+				return "Rule: " + nome + " | " + "LOC" + metricaXOperator + metricaX + " " + logicalOperator + " CYCLO" + metricaYOperator + metricaY + " | " + "CodeSmell: " + codeSmell;
 			} else {
 				if(metricaX!=0.0 && metricaY==0.0) {
-					return "Rule: " + nome + " | " + "LOC" + metricaXOperator + metricaX;
+					return "Rule: " + nome + " | " + "LOC" + metricaXOperator + metricaX + " | " + "CodeSmell: " + codeSmell;
 				}else {
-					return "Rule: " + nome + " | " + "CYCLO" + metricaYOperator + metricaY;
+					return "Rule: " + nome + " | " + "CYCLO" + metricaYOperator + metricaY + " | " + "CodeSmell: " + codeSmell;
 				}
 			}
 		}else {
 			if(logicalOperator!="") {
-				return "Rule: " + nome + " | " + "ATFD" + metricaXOperator + metricaX + " "  + logicalOperator +  " LAA" + metricaYOperator + metricaY;
+				return "Rule: " + nome + " | " + "ATFD" + metricaXOperator + metricaX + " "  + logicalOperator +  " LAA" + metricaYOperator + metricaY + " | " + "CodeSmell: " + codeSmell;
 			}else {
 				if(metricaX!=0.0 && metricaY==0.0) {
-					return "Rule: " + nome + " | " + "ATFD" + metricaXOperator + metricaX;
+					return "Rule: " + nome + " | " + "ATFD" + metricaXOperator + metricaX + " | " + "CodeSmell: " + codeSmell;
 				}else {
-					return "Rule: " + nome + " | " + "LAA" + metricaYOperator + metricaY;
+					return "Rule: " + nome + " | " + "LAA" + metricaYOperator + metricaY + " | " + "CodeSmell: " + codeSmell;
 				}
 			}
 		}
