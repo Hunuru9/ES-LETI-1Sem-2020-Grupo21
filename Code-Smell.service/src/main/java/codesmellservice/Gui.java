@@ -26,6 +26,7 @@ public class Gui {
 	private JPanel painelBotoes;
 	private JButton criarRegra;
 	private JButton criar;
+	private JButton atualizar;
 	
 	private DefaultListModel<String> listModel = new DefaultListModel<>();;
 	private JList<String> lista = new JList<>(listModel);
@@ -41,10 +42,12 @@ public class Gui {
 	private JDialog d;
 	
 	private RuleSet listaRegras;
+	private Rule aux;
 
 	public Gui(ExcelReader excelReader, RuleSet listaRegras) throws IOException, ClassNotFoundException {
 		this.listaRegras=listaRegras;
 		this.excelReader = excelReader;
+		aux=new Rule("");
 		this.table = new JTable(excelReader.getData(), excelReader.getColumnNames());
 		this.scrollTable = new JScrollPane(table);
 		
@@ -78,6 +81,8 @@ public class Gui {
 		
 		criarRegra=new JButton("Criar Regra");
 		
+		atualizar=new JButton("Atualizar Regra");
+		
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension tamanhoTela = kit.getScreenSize();
 		
@@ -110,6 +115,7 @@ public class Gui {
 				regra.setmetricaYOperator(operadorRelacional2Value);
 				regra.setLogicalOperator(operadorLogicoValue);
 				
+				
 				listaRegras.addRegra1(regra);
 				
 				for(int i=0; i!=listaRegras.getRegras().size(); i++) {
@@ -124,9 +130,50 @@ public class Gui {
 			}
 		});
 		
+		atualizar.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				int indice=listModel.indexOf(aux.getNomeRegra());
+				
+				String codeSmellValue = cb.getSelectedItem().toString();
+				String ruleNameValue = ruleName.getText();
+				String metrica1Value = metrica1.getText();
+				String operadorRelacional1Value = operadorRelacional1.getSelectedItem().toString();
+				String metrica2Value = metrica2.getText();
+				String operadorRelacional2Value = operadorRelacional2.getSelectedItem().toString();
+				String operadorLogicoValue = operadorLogico.getSelectedItem().toString();
+				
+				aux.setCodeSmell(codeSmellValue);
+				aux.setNomeRegra(ruleNameValue);
+				if(metrica1Value.isEmpty()) {
+					aux.setMetricaX(0.0);
+				}else {
+					aux.setMetricaX(Double.parseDouble(metrica1Value));
+				}
+				
+				if(metrica2Value.isEmpty()) {
+					aux.setMetricaY(0.0);
+				}else {
+					aux.setMetricaY(Double.parseDouble(metrica2Value));
+				}
+				
+				aux.setmetricaXOperator(operadorRelacional1Value);
+				aux.setmetricaYOperator(operadorRelacional2Value);
+				aux.setLogicalOperator(operadorLogicoValue);
+				
+				for(int i=0; i!=listaRegras.getRegras().size(); i++) {
+					System.out.println(listaRegras.getRegras().get(i).toString());
+				}
+				
+				listModel.set(indice, ruleNameValue);
+				
+				d.setVisible(false);
+			}
+		});
+		
 		lista.addMouseListener(new MouseAdapter() {
 
-            @Override
+			@Override
             public void mouseClicked(MouseEvent e) {
             	if(e.getClickCount() == 2) {
             		
@@ -136,6 +183,12 @@ public class Gui {
 	            	Toolkit kit = Toolkit.getDefaultToolkit();
 	  				Dimension tamanhoTela = kit.getScreenSize();
 	  				
+	  				for(int i=0; i!=listaRegras.getRegras().size(); i++) {
+	  					if(listaRegras.getRegras().get(i).getNomeRegra().equals(value)) {
+	  						aux=listaRegras.getRegras().get(i);
+	  					}
+	  				}
+	  				
 	  				d = new JDialog(frame, "Regra");
 	  				JPanel popupPanel = new JPanel(new BorderLayout());
 	  				JPanel ruleForm = new JPanel(new GridLayout(7,2));
@@ -144,30 +197,34 @@ public class Gui {
 	  				String codeSmell[]= {"is_long_method", "is_feature_envy"};
 	  				cb = new JComboBox<String>(codeSmell);
 	  				cb.setBounds(50, 50, 90, 20);
+	  				cb.setSelectedItem(aux.getCodeSmell());
 	  				
 	  				JLabel ruleNameLabel = new JLabel("Nome da regra");
-	  				ruleName = new JTextField();
+	  				ruleName = new JTextField(aux.getNomeRegra());
 	  				
-	  				JLabel metrica1Label= new JLabel("1ª Métrica");
-	  				metrica1 = new JTextField();
+	  				JLabel metrica1Label= new JLabel("LOC ou ATFD");
+	  				metrica1 = new JTextField(String.valueOf(aux.getMetricaX()));
 	  				
 	  				JLabel operadorRelacional1Label = new JLabel("1º Operador Relacional");
 	  				String operadores1[] = {"", "<", ">"};
 	  				operadorRelacional1 = new JComboBox<String>(operadores1);
 	  				operadorRelacional1.setBounds(50, 50, 90, 20);
+	  				operadorRelacional1.setSelectedItem(aux.getmetricaXOperator());
 	  				
-	  				JLabel metrica2Label= new JLabel("2ª Métrica");
-	  				metrica2 = new JTextField();
+	  				JLabel metrica2Label= new JLabel("CYCLO ou LAA");
+	  				metrica2 = new JTextField(String.valueOf(aux.getMetricaY()));
 	  				
 	  				JLabel operadorRelacional2Label = new JLabel("2º Operador Relacional");
 	  				String operadores2[] = {"", "<", ">"};
 	  				operadorRelacional2 = new JComboBox<String>(operadores2);
 	  				operadorRelacional2.setBounds(50, 50, 90, 20);
+	  				operadorRelacional2.setSelectedItem(aux.getmetricaYOperator());
 	  				
 	  				JLabel operadorLogicoLabel = new JLabel("Operador Lógico");
 	  				String operadoresLogico[] = {"", "AND", "OR"};
 	  				operadorLogico = new JComboBox<String>(operadoresLogico);
 	  				operadorLogico.setBounds(50, 50, 90, 20);
+	  				operadorLogico.setSelectedItem(aux.getLogicalOperator());
 	  				
 	  				ruleForm.add(codeSmellLabel);
 	  				ruleForm.add(cb);
@@ -185,8 +242,9 @@ public class Gui {
 	  				ruleForm.add(operadorLogico);
   				
 	  				popupPanel.add(ruleForm, BorderLayout.CENTER);
-	  				popupPanel.add(criar, BorderLayout.SOUTH);
-	  				d.setSize(200,200);
+	  				popupPanel.add(atualizar, BorderLayout.SOUTH);
+	  				d.setSize(300,200);
+					d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
 	  				d.add(popupPanel);
 	  				d.setVisible(true); 
             	  
@@ -215,7 +273,7 @@ public class Gui {
 				JLabel ruleNameLabel = new JLabel("Nome da regra");
 				ruleName = new JTextField();
 				
-				JLabel metrica1Label= new JLabel("1ª Métrica");
+				JLabel metrica1Label= new JLabel("LOC ou ATFD");
 				metrica1 = new JTextField();
 				
 				JLabel operadorRelacional1Label = new JLabel("1º Operador Relacional");
@@ -223,7 +281,7 @@ public class Gui {
   				operadorRelacional1 = new JComboBox<String>(operadores1);
   				operadorRelacional1.setBounds(50, 50, 90, 20);
 				
-				JLabel metrica2Label= new JLabel("2ª Métrica");
+				JLabel metrica2Label= new JLabel("CYCLO ou LAA");
 				metrica2 = new JTextField();
 				
 				JLabel operadorRelacional2Label = new JLabel("2º Operador Relacional");
@@ -253,7 +311,8 @@ public class Gui {
 				
 				popupPanel.add(ruleForm, BorderLayout.CENTER);
 				popupPanel.add(criar, BorderLayout.SOUTH);
-				d.setSize(200,200);
+				d.setSize(300,200);
+				d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
 				d.add(popupPanel);
 				d.setVisible(true); 
 			}

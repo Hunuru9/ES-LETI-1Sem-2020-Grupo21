@@ -34,6 +34,11 @@ public class Rule {
 	public String getmetricaYOperator() {
 		return metricaYOperator;
 	}
+	
+	public void setCodeSmell(String smell) {
+		codeSmell=smell;
+	}
+	
 	public String getCodeSmell() {
 		return codeSmell;
 	}
