@@ -121,7 +121,20 @@ public class ExcelReader {
 			if(this.columnNames[i].equals(metric)) {
 				for(int j = 0; j!= values.length; j++) {
 					values[j] = Double.valueOf(this.data[j][i]);
-					System.out.println(values[j]);
+					//System.out.println(values[j]);
+				}
+			}
+		}
+		return values;
+	}
+	
+	public String[] getStringValues(String tool) {
+		String[] values = new String[this.data.length];
+		for(int i = 0; i!= this.columnNames.length; i++) {
+			if(this.columnNames[i].equals(tool)) {
+				for(int j = 0; j!= values.length; j++) {
+					values[j]=this.data[j][i];
+					//System.out.println(values[j]);
 				}
 			}
 		}
