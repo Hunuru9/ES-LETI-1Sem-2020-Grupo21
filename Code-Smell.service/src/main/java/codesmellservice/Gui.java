@@ -27,9 +27,12 @@ public class Gui {
 	private JButton criarRegra;
 	private JButton criar;
 	private JButton atualizar;
+	private JButton filtrar;
+	private JButton Results;
 	
 	private DefaultListModel<String> listModel = new DefaultListModel<>();;
 	private JList<String> lista = new JList<>(listModel);
+	private JList<String> listaMethodfilter = new JList<>(listModel);
 	
 	private JTextField ruleName;
 	private JTextField metrica1;
@@ -38,6 +41,9 @@ public class Gui {
 	private JComboBox operadorRelacional2;
 	private JComboBox operadorLogico;
 	private JComboBox cb;
+	private JScrollPane scroll;
+	private JComboBox MethodIDbox;
+	private JScrollPane scrollMethodID;
 	
 	private JDialog d;
 	
@@ -47,6 +53,8 @@ public class Gui {
 	public Gui(ExcelReader excelReader, RuleSet listaRegras) throws IOException, ClassNotFoundException {
 		this.listaRegras=listaRegras;
 		this.excelReader = excelReader;
+		scroll=new JScrollPane(lista);
+		scrollMethodID = new JScrollPane(listaMethodfilter);
 		aux=new Rule("");
 		this.table = new JTable(excelReader.getData(), excelReader.getColumnNames());
 		this.scrollTable = new JScrollPane(table);
@@ -64,14 +72,19 @@ public class Gui {
 		JButton showExcel = new JButton("Mostrar Excel");
 		painelBotoes.add(showExcel);
 		
-		JButton regras=new JButton("Regras");
+		JButton regras=new JButton("Lista de Regras");
 		painelBotoes.add(regras);
+		
+		JButton detetarDefeitos = new JButton("Detetar Defeitos");
+		painelBotoes.add(detetarDefeitos);
+		
 		
 		frame.add(painelBotoes, BorderLayout.NORTH);
 
 		final JPanel excelPanel = new JPanel(new BorderLayout());
-		final JPanel defeitosPanel = new JPanel(new BorderLayout());
+		final JPanel regrasPanel = new JPanel(new BorderLayout());
 		final JPanel showcase=new JPanel(new BorderLayout());
+		final JPanel defeitosPanel = new JPanel(new BorderLayout());
 		
 		JTextField bemVindo = new JTextField("Bem Vindo!");
 		showcase.add(bemVindo);
@@ -82,6 +95,10 @@ public class Gui {
 		criarRegra=new JButton("Criar Regra");
 		
 		atualizar=new JButton("Atualizar Regra");
+		
+		filtrar= new JButton("Filtrar Lista");
+		
+		Results = new JButton("Ver Resultados");
 		
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension tamanhoTela = kit.getScreenSize();
@@ -318,23 +335,64 @@ public class Gui {
 			}
 		});
 		
+		
+		filtrar.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				
+				Toolkit kit = Toolkit.getDefaultToolkit();
+				Dimension tamanhoTela = kit.getScreenSize();
+				d = new JDialog(frame, "Escolha uam regra/ferramentaS");
+				JPanel popupPanel = new JPanel(new BorderLayout());
+				JPanel comboBoxSegment = new JPanel(new GridLayout(1,2));
+				
+				JLabel MethodIDchoice = new JLabel("Escolha um MethodID");
+				String MethodIDlist[]= {"MethodID1", "MethodID2"};
+				MethodIDbox = new JComboBox<String>(MethodIDlist);
+				MethodIDbox.setBounds(50, 50, 90, 20);
+				
+				comboBoxSegment.add(MethodIDchoice);
+				comboBoxSegment.add(MethodIDbox);
+				
+				popupPanel.add(comboBoxSegment,BorderLayout.CENTER);
+				popupPanel.add(Results,BorderLayout.SOUTH);
+				d.setSize(300,200);
+				d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
+				d.add(popupPanel);
+				d.setVisible(true);
+				
+				
+			}
+			});
+		
+		Results.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				String MethodIDValue = MethodIDbox.getSelectedItem().toString();
+				
+				
+				
+				
+				
+			}
+		});
+		
 		regras.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				
-				JScrollPane scroll=new JScrollPane(lista);
-				scroll.setPreferredSize(new Dimension(400,400));
-				defeitosPanel.add(scroll, BorderLayout.CENTER);
+				regrasPanel.add(scroll, BorderLayout.CENTER);
 				
-				defeitosPanel.add(criarRegra,BorderLayout.SOUTH);
+				regrasPanel.add(criarRegra,BorderLayout.SOUTH);
 				
 				frame.remove(showcase);
 				frame.remove(excelPanel);
-				frame.add(defeitosPanel);
+				frame.remove(defeitosPanel);
+				frame.add(regrasPanel);
 				frame.validate();
 				frame.repaint();
 
-				frame.setSize(800,800);
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			}
 
 		});
@@ -346,10 +404,28 @@ public class Gui {
 				frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 				
 				frame.remove(showcase);
+				frame.remove(regrasPanel);
 				frame.remove(defeitosPanel);
 				frame.add(excelPanel);
 				frame.revalidate();
 				frame.repaint();
+			}
+		});
+		
+		detetarDefeitos.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				defeitosPanel.add(filtrar,BorderLayout.NORTH);
+				defeitosPanel.add(scrollMethodID,BorderLayout.CENTER);
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				
+				frame.remove(showcase);
+				frame.remove(regrasPanel);
+				frame.remove(excelPanel);
+				frame.add(defeitosPanel);
+				frame.revalidate();
+				frame.repaint();
+				
 			}
 		});
 
