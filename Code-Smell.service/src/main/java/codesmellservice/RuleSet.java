@@ -140,23 +140,30 @@ public class RuleSet {
 			}
 			break;
 		}
-		/*for(int i=0; i!=resultados.size(); i++) {
-			System.out.println(resultados.get(i));
-		}*/
+
 		return resultados;
 	}
 
-	public HashMap<String,Integer> quality_indicators(Rule r, List<String> resultados){
-		List<String> allValues = excel.getColumnValues(r.getCodeSmell());
+	public HashMap<String,Integer> quality_indicators(String tool, List<String> resultados){
+		List<String> allValues = excel.getColumnValues(tool); //Valores do long_method por exemplo
+		List<String> list_to_compare; //nossos valores
+		boolean to_compare;
+		if(tool.equals("PMD") || tool.equals("iPlasma")) {
+			list_to_compare = excel.getColumnValues(tool);
+			allValues = excel.getColumnValues("is_long_method");
+		}else {
+			allValues = excel.getColumnValues(tool);
+			list_to_compare = resultados;
+		}
 		for(int i = 0; i <= allValues.size()-1; i++) {
-			if(Boolean.parseBoolean(resultados.get(i)) &&  Boolean.parseBoolean(allValues.get(i))) {
+			if(Boolean.parseBoolean(list_to_compare.get(i)) &&  Boolean.parseBoolean(allValues.get(i))) {
 				if(map.containsKey("DCI")) {
 					this.map.put("DCI", map.get("DCI") + 1);
 				}else {
 					this.map.put("DCI", 1);
 				}
 			}else 
-				if (Boolean.parseBoolean(resultados.get(i)) && !Boolean.parseBoolean(allValues.get(i)) ){
+				if (Boolean.parseBoolean(list_to_compare.get(i)) && !Boolean.parseBoolean(allValues.get(i)) ){
 					if(map.containsKey("DII")) {
 						this.map.put("DII", map.get("DII") + 1);
 					}else {
@@ -164,7 +171,7 @@ public class RuleSet {
 					}
 				}
 				else
-					if (!Boolean.parseBoolean(resultados.get(i)) && !Boolean.parseBoolean(allValues.get(i)) ){
+					if (!Boolean.parseBoolean(list_to_compare.get(i)) && !Boolean.parseBoolean(allValues.get(i)) ){
 						if(map.containsKey("ADCI")) {
 							this.map.put("ADCI", map.get("ADCI") + 1);
 						}else {
@@ -182,5 +189,7 @@ public class RuleSet {
 		System.out.println(this.map.toString());
 		return this.map;
 	}
+	
+	
 	
 }
