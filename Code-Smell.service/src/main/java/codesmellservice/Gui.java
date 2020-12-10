@@ -538,18 +538,27 @@ public class Gui {
 				}
 
 				qi_panel.removeAll();
-				qi_panel.add(new JLabel("DCI"));
+				
+				JLabel dci_label = new JLabel("DCI: ");
+				qi_panel.add(dci_label);
 				JLabel dci_value = new JLabel(Integer.toString(0));
 				qi_panel.add(dci_value);
-				qi_panel.add(new JLabel("DII"));
+				
+				JLabel dii_label = new JLabel("DII: ");
+				qi_panel.add(dii_label);
 				JLabel dii_value = new JLabel(Integer.toString(0));
 				qi_panel.add(dii_value);
-				qi_panel.add(new JLabel("ADCI"));
+				
+				JLabel adci_label = new JLabel("ADCI: ");
+				qi_panel.add(adci_label);
 				JLabel adci_value = new JLabel(Integer.toString(0));
 				qi_panel.add(adci_value);
-				qi_panel.add(new JLabel("ADII"));
+				
+				JLabel adii_label = new JLabel("ADII: ");
+				qi_panel.add(adii_label);
 				JLabel adii_value = new JLabel(Integer.toString(0));
 				qi_panel.add(adii_value);
+				
 				for (Map.Entry mapElement : listaRegras.getMap().entrySet()) { 
 					String key = (String)mapElement.getKey();
 					if(key.equals("DCI")) {
@@ -568,6 +577,16 @@ public class Gui {
 						}
 					}
 				}
+				dci_label.setFont(new Font(dci_label.getFont().getName(), Font.BOLD, 18));
+				dii_label.setFont(new Font(dii_label.getFont().getName(), Font.BOLD, 18));
+				adci_label.setFont(new Font(adci_label.getFont().getName(), Font.BOLD, 18));
+				adii_label.setFont(new Font(adii_label.getFont().getName(), Font.BOLD, 18));
+				
+				dci_value.setFont(new Font(dci_value.getFont().getName(), Font.PLAIN, 18));
+				dii_value.setFont(new Font(dci_value.getFont().getName(), Font.PLAIN, 18));
+				adci_value.setFont(new Font(dci_value.getFont().getName(), Font.PLAIN, 18));
+				adii_value.setFont(new Font(dci_value.getFont().getName(), Font.PLAIN, 18));
+				qi_panel.setBorder(BorderFactory.createEmptyBorder(100, 10, 10, 10));
 				teste_west.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 				scrollMethodID = new JScrollPane(listaMethodfilter, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 				scrollMethodID.setPreferredSize(new Dimension(150,500));
@@ -580,7 +599,7 @@ public class Gui {
 				teste_west.add(scrollMethodID, BorderLayout.CENTER);
 				teste_east.add(qi_panel);
 				teste_east.setAlignmentX(Component.CENTER_ALIGNMENT);
-				teste_west.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+				teste_west.setBorder(BorderFactory.createEmptyBorder(10, 15, 15, 50));
 				//frame.add(defeitosPanel);
 				frame.revalidate();
 				frame.repaint();
@@ -598,7 +617,7 @@ public class Gui {
 				regrasPanel.add(criarRegra,BorderLayout.NORTH);
 
 
-				frame.setSize(600,600);
+				frame.setSize(400,600);
 
 
 				frame.remove(showcase);
@@ -637,7 +656,8 @@ public class Gui {
 
 				defeitosPanel.add(teste_west,BorderLayout.WEST);
 				defeitosPanel.add(teste_east,BorderLayout.CENTER);
-				frame.setSize(600,600);
+				//defeitosPanel.setBorder(BorderFactory.createEmptyBorder(10, 100, 100, 100));
+				frame.setSize(400,600);
 
 				frame.remove(showcase);
 				frame.remove(regrasPanel);
