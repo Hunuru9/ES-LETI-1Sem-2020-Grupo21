@@ -8,9 +8,14 @@ public class Rule {
 	private String codeSmell;
 	private String metricaXOperator;
 	private String metricaYOperator;
+	private String stringMetricaX;
+	private String stringMetricaY;
 	
-	public Rule(String codeSmell) {
+	
+	public Rule(String codeSmell, String stringMetricaX, String stringMetricaY) {
 		this.codeSmell=codeSmell;
+		this.stringMetricaX=stringMetricaX;
+		this.stringMetricaY=stringMetricaY;
 		nome="";
 		metricaX=0.0;
 		metricaY=0.0;
@@ -19,6 +24,21 @@ public class Rule {
 		logicalOperator="";
 	}
 	
+	public String getMetricaXString() {
+		return stringMetricaX;
+	}
+	
+	public String getMetricaYString() {
+		return stringMetricaY;
+	}
+	
+	public void setMetricaXString(String s) {
+		stringMetricaX=s;
+	}
+	
+	public void setMetricaYString(String s) {
+		stringMetricaY=s;
+	}
 	public void setmetricaXOperator(String operator) {
 		metricaXOperator=operator;
 	}
@@ -76,27 +96,16 @@ public class Rule {
 	}
 	
 	public String toString() {
-		if(codeSmell.equals("is_long_method")) {
-			if(logicalOperator!="") {
-				return "Rule: " + nome + " | " + "LOC" + metricaXOperator + metricaX + " " + logicalOperator + " CYCLO" + metricaYOperator + metricaY + " | " + "CodeSmell: " + codeSmell;
-			} else {
-				if(metricaX!=0.0 && metricaY==0.0) {
-					return "Rule: " + nome + " | " + "LOC" + metricaXOperator + metricaX + " | " + "CodeSmell: " + codeSmell;
-				}else {
-					return "Rule: " + nome + " | " + "CYCLO" + metricaYOperator + metricaY + " | " + "CodeSmell: " + codeSmell;
-				}
-			}
+		if(logicalOperator!="") {
+			return "Rule: " + nome + " | " + stringMetricaX + metricaXOperator + metricaX + " " + logicalOperator + " " + stringMetricaY + metricaYOperator + metricaY + " | " + "CodeSmell: " + codeSmell;
 		}else {
-			if(logicalOperator!="") {
-				return "Rule: " + nome + " | " + "ATFD" + metricaXOperator + metricaX + " "  + logicalOperator +  " LAA" + metricaYOperator + metricaY + " | " + "CodeSmell: " + codeSmell;
+			if(metricaX==0.0 && metricaY!=0.0) {
+				return "Rule: " + nome + " | " + stringMetricaY + metricaYOperator + metricaY + " | " + "CodeSmell: " + codeSmell;
 			}else {
-				if(metricaX!=0.0 && metricaY==0.0) {
-					return "Rule: " + nome + " | " + "ATFD" + metricaXOperator + metricaX + " | " + "CodeSmell: " + codeSmell;
-				}else {
-					return "Rule: " + nome + " | " + "LAA" + metricaYOperator + metricaY + " | " + "CodeSmell: " + codeSmell;
-				}
+				return "Rule: " + nome + " | " + stringMetricaX + metricaXOperator + metricaX + " | " + "CodeSmell: " + codeSmell;
 			}
 		}
 	}
+	
 	
 }
