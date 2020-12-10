@@ -7,12 +7,11 @@ import java.util.List;
  * Hello world!
  *
  */
-public class App 
+public class App
 {
 	public static void main(String[] args) throws IOException, ClassNotFoundException{
 		ExcelReader excelReader = new ExcelReader("Defeitos.xlsx");
 		RuleSet ruleSet=new RuleSet(excelReader);
-		//excelReader.getMetricValues("LOC");
 		Gui gui = new Gui(excelReader, ruleSet);
 		gui.open();
 		
@@ -27,6 +26,7 @@ public class App
         List <String> secondColumn=excelReader.getColumnValues("CYCLO");
         String aux=r.getmetricaXOperator()+r.getmetricaYOperator();
         ruleSet.quality_indicators("PMD", ruleSet.stringValues(aux, r, firstColumn, secondColumn));
+		
     }
 	
 	

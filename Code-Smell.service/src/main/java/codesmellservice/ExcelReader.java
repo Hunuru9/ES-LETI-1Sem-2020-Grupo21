@@ -113,7 +113,7 @@ public class ExcelReader {
 					break;
 				}
 			}
-			System.out.println();
+//			System.out.println();
 		}
 	}
 	
@@ -123,7 +123,7 @@ public class ExcelReader {
 			if(this.columnNames[i].equals(columnName)) {
 				for(int j = 0; j!= this.data.length; j++) {
 					columnValues.add(this.data[j][i]);
-					System.out.println(columnValues.get(j));
+//					System.out.println(columnValues.get(j));
 				}
 			}
 		}
