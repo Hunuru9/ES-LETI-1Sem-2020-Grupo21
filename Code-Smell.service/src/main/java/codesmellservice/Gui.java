@@ -20,6 +20,16 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+/**
+ * <h1>GUI</h1>
+ * O GUI representa a interface na qual o objetivo do trabalho é implementado, ou seja 
+ * trata da representação visual do código implementado nas outras classes para o fim 
+ * de visualização de defeitos detetados.
+ * 
+ * @author Francisco Nunes
+ * @since 2020-12-10
+ */
+
 public class Gui {
 	private JFrame frame;
 
@@ -67,6 +77,17 @@ public class Gui {
 	private JPanel teste_west = new JPanel(new BorderLayout(hGap,vGap));
 	private JPanel teste_east = new JPanel();
 
+	/**
+	 * Este é o método construtor do GUI.
+	 * @param excelReader O GUI pede um objeto do tipo ExcelReader para ser iniciado.
+	 * @param listaRegras O GUI pede um objeto do tipo RuelSet para ser iniciado.
+	 * Neste construtor são iniciados todos os atributos, é criada a JFrame que 
+	 * vai receber o Layout inicial com o addFrameContent().
+	 * 
+	 * @author Francisco Nunes
+	 * @since 2020-12-10
+	 */
+
 	public Gui(ExcelReader excelReader, RuleSet listaRegras) throws IOException, ClassNotFoundException {
 		this.listaRegras=listaRegras;
 		this.excelReader = excelReader;
@@ -83,6 +104,40 @@ public class Gui {
 		frame.setResizable(true);
 		addFrameContent();
 	}
+
+	/**
+	 * Neste método são tratadas todas as alterações fruto da interação do utilizador com o GUI.
+	 * <p>
+	 * Dentro deste método existem vários butões que interagem diretamente com o GUI alterando
+	 * o JPanel mostrado (i.e. showExcel, regras, detetarDefeitos) e outros que servem para
+	 * introduzir valores criando regras (criar, criarRegra e lista) ou para a deteção de
+	 * defeitos (filtrar e Results).
+	 * <p>
+	 * Os botões showExcel,regras e detetarDefeitos são utilizados para fazer a troca de JPanel na JFrame 
+	 * para mostrar o conteudo respetivo de cada área.
+	 * <p>
+	 * O botão criarRegra abre uma JDialog onde é possivel ser criada uma regra, tendo JComboBox
+	 * e JTextField para o efeito. A JCombobox inicial utiliza o codeSm para atualizar as escolhas
+	 * possíveis nas outras JCombobox em face à opção escolhida na inicial.
+	 * <p>
+	 * O botão criar ao ser clicado, lê os contéudos de cada JCombobox e JTextField no JDialog e 
+	 * cria uma regra com essa informação, colocando-a posteriormente na JList listaRegras.
+	 * <p>
+	 * O botão lista funciona ao clciar uma regra existente na listaRegras 2 vezes, levando
+	 * o utilizador para a JDialog que foi utilizada para a criar, com as informações dessa mesma regra
+	 * nos lugares respetivos para ser possível editá-la. O botão criar que aparecia na criação da regra
+	 * é agora trocado pelo botão atualizar.
+	 * <p>
+	 * O botão filtrar abre uma JDialog com uma única JCombobox a pedir a regra a ser utilizada para filtrar
+	 * os MethodIDs que têm CodeSmells.
+	 * <p>
+	 * O botão Results coloca os resultados filtrados apartir da regra escolhida na JList listaMethodfilter e 
+	 * altera os valores dos indicadores de qualidade face aos resultados.
+	 * 
+	 * 
+	 * @author Francisco Nunes
+	 * @since 2020-12-10
+	 */
 
 	public void addFrameContent() {
 
@@ -116,7 +171,7 @@ public class Gui {
 		filtrar= new JButton("Filtrar Lista");
 
 		Results = new JButton("Ver Resultados");
-		
+
 		String codeSmell[]= {"", "is_long_method", "is_feature_envy"};
 		codeSm = new JComboBox<String>(codeSmell);
 
@@ -128,15 +183,15 @@ public class Gui {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				String codeSmellValue = codeSm.getSelectedItem().toString();
 				String ruleNameValue = ruleName.getText();
-				
+
 				String metrica1string = metricX.getSelectedItem().toString();
 				String metrica1Value = metrica1.getText();
 				String operadorRelacional1Value = operadorRelacional1.getSelectedItem().toString();
-				
+
 				String metrica2string = metricY.getSelectedItem().toString();
 				String metrica2Value = metrica2.getText();
 				String operadorRelacional2Value = operadorRelacional2.getSelectedItem().toString();
-				
+
 				String operadorLogicoValue = operadorLogico.getSelectedItem().toString();
 
 				if(ruleNameValue.isEmpty() || !metrica1string.isEmpty() && metrica2string.isEmpty() && !operadorLogicoValue.isEmpty()
@@ -144,36 +199,36 @@ public class Gui {
 						metrica1string.isEmpty() && metrica2string.isEmpty() || !metrica1string.isEmpty() && !metrica2string.isEmpty() && operadorLogicoValue.isEmpty() ){
 					d.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					throw new IllegalArgumentException("Critérios inválidos");
-					
+
 				}else {
-				Rule regra=new Rule(codeSmellValue, metrica1string, metrica2string);
-				regra.setNomeRegra(ruleNameValue);
-				if(metrica1Value.isEmpty()) {
-					regra.setMetricaX(0.0);
-				}else {
-					regra.setMetricaX(Double.parseDouble(metrica1Value));
-				}
+					Rule regra=new Rule(codeSmellValue, metrica1string, metrica2string);
+					regra.setNomeRegra(ruleNameValue);
+					if(metrica1Value.isEmpty()) {
+						regra.setMetricaX(0.0);
+					}else {
+						regra.setMetricaX(Double.parseDouble(metrica1Value));
+					}
 
-				if(metrica2Value.isEmpty()) {
-					regra.setMetricaY(0.0);
-				}else {
-					regra.setMetricaY(Double.parseDouble(metrica2Value));
-				}
+					if(metrica2Value.isEmpty()) {
+						regra.setMetricaY(0.0);
+					}else {
+						regra.setMetricaY(Double.parseDouble(metrica2Value));
+					}
 
-				regra.setmetricaXOperator(operadorRelacional1Value);
-				regra.setmetricaYOperator(operadorRelacional2Value);
-				regra.setLogicalOperator(operadorLogicoValue);
+					regra.setmetricaXOperator(operadorRelacional1Value);
+					regra.setmetricaYOperator(operadorRelacional2Value);
+					regra.setLogicalOperator(operadorLogicoValue);
 
 
-				listaRegras.addRegra1(regra);
+					listaRegras.addRegra1(regra);
 
-				//				for(int i=0; i!=listaRegras.getRegras().size(); i++) {
-				//					System.out.println(listaRegras.getRegras().get(i).toString());
-				//				}
+					//				for(int i=0; i!=listaRegras.getRegras().size(); i++) {
+					//					System.out.println(listaRegras.getRegras().get(i).toString());
+					//				}
 
-				listModelRegras.addElement(regra.toString());
+					listModelRegras.addElement(regra.toString());
 
-				d.setVisible(false); 
+					d.setVisible(false); 
 				}
 
 			}
@@ -186,15 +241,15 @@ public class Gui {
 
 				String codeSmellValue = codeSm.getSelectedItem().toString();
 				String ruleNameValue = ruleName.getText();
-				
+
 				String metrica1string = metricX.getSelectedItem().toString();
 				String metrica1Value = metrica1.getText();
 				String operadorRelacional1Value = operadorRelacional1.getSelectedItem().toString();
-				
+
 				String metrica2string = metricY.getSelectedItem().toString();
 				String metrica2Value = metrica2.getText();
 				String operadorRelacional2Value = operadorRelacional2.getSelectedItem().toString();
-				
+
 				String operadorLogicoValue = operadorLogico.getSelectedItem().toString();
 
 				if(ruleNameValue.isEmpty() || !metrica1string.isEmpty() && metrica2string.isEmpty() && !operadorLogicoValue.isEmpty()
@@ -203,34 +258,34 @@ public class Gui {
 					d.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					throw new IllegalArgumentException("Critérios inválidos");
 				}else {
-					
-				aux.setMetricaXString(metrica1string); aux.setMetricaYString(metrica2string);
-				aux.setCodeSmell(codeSmellValue);
-				aux.setNomeRegra(ruleNameValue);
-				if(metrica1Value.isEmpty()) {
-					aux.setMetricaX(0.0);
-				}else {
-					aux.setMetricaX(Double.parseDouble(metrica1Value));
+
+					aux.setMetricaXString(metrica1string); aux.setMetricaYString(metrica2string);
+					aux.setCodeSmell(codeSmellValue);
+					aux.setNomeRegra(ruleNameValue);
+					if(metrica1Value.isEmpty()) {
+						aux.setMetricaX(0.0);
+					}else {
+						aux.setMetricaX(Double.parseDouble(metrica1Value));
+					}
+
+					if(metrica2Value.isEmpty()) {
+						aux.setMetricaY(0.0);
+					}else {
+						aux.setMetricaY(Double.parseDouble(metrica2Value));
+					}
+
+					aux.setmetricaXOperator(operadorRelacional1Value);
+					aux.setmetricaYOperator(operadorRelacional2Value);
+					aux.setLogicalOperator(operadorLogicoValue);
+					String s=aux.toString();
+
+					//				for(int i=0; i!=listaRegras.getRegras().size(); i++) {
+					//					System.out.println(listaRegras.getRegras().get(i).toString());
+					//				}
+
+					listModelRegras.set(indice, s);
+					d.setVisible(false);
 				}
-
-				if(metrica2Value.isEmpty()) {
-					aux.setMetricaY(0.0);
-				}else {
-					aux.setMetricaY(Double.parseDouble(metrica2Value));
-				}
-
-				aux.setmetricaXOperator(operadorRelacional1Value);
-				aux.setmetricaYOperator(operadorRelacional2Value);
-				aux.setLogicalOperator(operadorLogicoValue);
-				String s=aux.toString();
-				
-				//				for(int i=0; i!=listaRegras.getRegras().size(); i++) {
-				//					System.out.println(listaRegras.getRegras().get(i).toString());
-				//				}
-
-				listModelRegras.set(indice, s);
-				d.setVisible(false);
-			}
 			}
 		});
 
@@ -239,13 +294,13 @@ public class Gui {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount() == 2) {
-					
+
 					metricX.removeAllItems();
-            		metricY.removeAllItems();
+					metricY.removeAllItems();
 					String value = (String)lista.getModel().getElementAt(lista.locationToIndex(e.getPoint()));
 					//					System.out.println(value);
 					String [] nome=value.split(" ");
-					
+
 					Toolkit kit = Toolkit.getDefaultToolkit();
 					Dimension tamanhoTela = kit.getScreenSize();
 
@@ -261,94 +316,94 @@ public class Gui {
 					JPanel ruleForm = new JPanel(new GridLayout(5,4,hGap,vGap));
 
 					JLabel codeSmellLabel = new JLabel("Code Smell");
-	  				//String codeSmell[]= {"", "is_long_method", "is_feature_envy"};
-	  				//codeSm = new JComboBox<String>(codeSmell);
-	  				codeSm.setBounds(50, 50, 90, 20);
-	  				codeSm.setSelectedItem(aux.getCodeSmell());
-	  				JLabel vazio = new JLabel("");
-	  				JLabel v = new JLabel("");
-	  				
-	  				
-	  				JLabel ruleNameLabel = new JLabel("Nome da regra");
-	  				ruleName = new JTextField(aux.getNomeRegra());
-	  				JLabel vazio1 = new JLabel("");
-	  				JLabel v2 = new JLabel("");
-	  				
-	  				
-	  				JLabel labelMetrica1 = new JLabel("1º Threshold");
-	  				metricX = new JComboBox<String>();
-	  				
-	  				metricX.setBounds(50, 50, 90, 20);
+					//String codeSmell[]= {"", "is_long_method", "is_feature_envy"};
+					//codeSm = new JComboBox<String>(codeSmell);
+					codeSm.setBounds(50, 50, 90, 20);
+					codeSm.setSelectedItem(aux.getCodeSmell());
+					JLabel vazio = new JLabel("");
+					JLabel v = new JLabel("");
 
-	  				String operadores1[] = {"", "<", ">"};
-	  				operadorRelacional1 = new JComboBox<String>(operadores1);
-	  				operadorRelacional1.setBounds(50, 50, 90, 20);
-	  				operadorRelacional1.setSelectedItem(aux.getmetricaXOperator());
-	  				metrica1 = new JTextField(String.valueOf(aux.getMetricaX()));
-	  				
-	  			
-	  				JLabel labelMetrica2 = new JLabel("2º Threshold");
-	  				metricY = new JComboBox<String>();
-	  				metricY.setBounds(50, 50, 90, 20);
 
-	  				String operadores2[] = {"", "<", ">"};
-	  				operadorRelacional2 = new JComboBox<String>(operadores2);
-	  				operadorRelacional2.setBounds(50, 50, 90, 20);
-	  				operadorRelacional2.setSelectedItem(aux.getmetricaYOperator());
-	  				metrica2 = new JTextField(String.valueOf(aux.getMetricaY()));
-	  				
-	  				if(aux.getCodeSmell().equals("is_long_method")) {
-	  					metricX.addItem(""); metricX.addItem("LOC"); metricX.addItem("CYCLO");
-	  					metricY.addItem(""); metricY.addItem("LOC"); metricY.addItem("CYCLO");
-	  				}else {
-	  					metricX.addItem(""); metricX.addItem("ATFD"); metricX.addItem("LAA");
-	  					metricY.addItem(""); metricY.addItem("ATFD"); metricY.addItem("LAA");
-	  				}
-	  				
-	  				metricX.setSelectedItem(aux.getMetricaXString());
-	  				metricY.setSelectedItem(aux.getMetricaYString());
+					JLabel ruleNameLabel = new JLabel("Nome da regra");
+					ruleName = new JTextField(aux.getNomeRegra());
+					JLabel vazio1 = new JLabel("");
+					JLabel v2 = new JLabel("");
 
-	  				
-	  				JLabel operadorLogicoLabel = new JLabel("Operador Lógico");
-	  				String operadoresLogico[] = {"", "AND", "OR"};
-	  				operadorLogico = new JComboBox<String>(operadoresLogico);
-	  				operadorLogico.setBounds(50, 50, 90, 20);
-	  				operadorLogico.setSelectedItem(aux.getLogicalOperator());
-	  				JLabel vazio2 = new JLabel("");
-	  				JLabel v3 = new JLabel("");
-	  				
-	  				ruleForm.add(codeSmellLabel);
-		  			ruleForm.add(codeSm);
-		  			ruleForm.add(vazio);
-		  			ruleForm.add(v);
-		  				
-		  			ruleForm.add(ruleNameLabel);
-		  			ruleForm.add(ruleName);
-		  			ruleForm.add(vazio1);
-		  			ruleForm.add(v2);
-		  				
-		  			
+
+					JLabel labelMetrica1 = new JLabel("1º Threshold");
+					metricX = new JComboBox<String>();
+
+					metricX.setBounds(50, 50, 90, 20);
+
+					String operadores1[] = {"", "<", ">"};
+					operadorRelacional1 = new JComboBox<String>(operadores1);
+					operadorRelacional1.setBounds(50, 50, 90, 20);
+					operadorRelacional1.setSelectedItem(aux.getmetricaXOperator());
+					metrica1 = new JTextField(String.valueOf(aux.getMetricaX()));
+
+
+					JLabel labelMetrica2 = new JLabel("2º Threshold");
+					metricY = new JComboBox<String>();
+					metricY.setBounds(50, 50, 90, 20);
+
+					String operadores2[] = {"", "<", ">"};
+					operadorRelacional2 = new JComboBox<String>(operadores2);
+					operadorRelacional2.setBounds(50, 50, 90, 20);
+					operadorRelacional2.setSelectedItem(aux.getmetricaYOperator());
+					metrica2 = new JTextField(String.valueOf(aux.getMetricaY()));
+
+					if(aux.getCodeSmell().equals("is_long_method")) {
+						metricX.addItem(""); metricX.addItem("LOC"); metricX.addItem("CYCLO");
+						metricY.addItem(""); metricY.addItem("LOC"); metricY.addItem("CYCLO");
+					}else {
+						metricX.addItem(""); metricX.addItem("ATFD"); metricX.addItem("LAA");
+						metricY.addItem(""); metricY.addItem("ATFD"); metricY.addItem("LAA");
+					}
+
+					metricX.setSelectedItem(aux.getMetricaXString());
+					metricY.setSelectedItem(aux.getMetricaYString());
+
+
+					JLabel operadorLogicoLabel = new JLabel("Operador Lógico");
+					String operadoresLogico[] = {"", "AND", "OR"};
+					operadorLogico = new JComboBox<String>(operadoresLogico);
+					operadorLogico.setBounds(50, 50, 90, 20);
+					operadorLogico.setSelectedItem(aux.getLogicalOperator());
+					JLabel vazio2 = new JLabel("");
+					JLabel v3 = new JLabel("");
+
+					ruleForm.add(codeSmellLabel);
+					ruleForm.add(codeSm);
+					ruleForm.add(vazio);
+					ruleForm.add(v);
+
+					ruleForm.add(ruleNameLabel);
+					ruleForm.add(ruleName);
+					ruleForm.add(vazio1);
+					ruleForm.add(v2);
+
+
 					ruleForm.add(labelMetrica1);
-		  			ruleForm.add(metricX);
-		  			ruleForm.add(operadorRelacional1);
-		 			ruleForm.add(metrica1);
-		  				
-		 			ruleForm.add(labelMetrica2);
-		  			ruleForm.add(metricY);
-		  			ruleForm.add(operadorRelacional2);
-		  			ruleForm.add(metrica2);
-		  				
-		  			ruleForm.add(operadorLogicoLabel);
-		  			ruleForm.add(operadorLogico);
-		  			ruleForm.add(vazio2);
-		  			ruleForm.add(v3);
-  				
-	  				popupPanel.add(ruleForm, BorderLayout.CENTER);
-	  				popupPanel.add(atualizar, BorderLayout.SOUTH);
-	  				d.setSize(410,200);
+					ruleForm.add(metricX);
+					ruleForm.add(operadorRelacional1);
+					ruleForm.add(metrica1);
+
+					ruleForm.add(labelMetrica2);
+					ruleForm.add(metricY);
+					ruleForm.add(operadorRelacional2);
+					ruleForm.add(metrica2);
+
+					ruleForm.add(operadorLogicoLabel);
+					ruleForm.add(operadorLogico);
+					ruleForm.add(vazio2);
+					ruleForm.add(v3);
+
+					popupPanel.add(ruleForm, BorderLayout.CENTER);
+					popupPanel.add(atualizar, BorderLayout.SOUTH);
+					d.setSize(410,200);
 					d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
-	  				d.add(popupPanel);
-	  				d.setVisible(true);
+					d.add(popupPanel);
+					d.setVisible(true);
 
 				}
 			}
@@ -369,74 +424,74 @@ public class Gui {
 				popupPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
 				JLabel codeSmellLabel = new JLabel("Code Smell");
-  				codeSm.setBounds(50, 50, 90, 20);
-  				JLabel vazio = new JLabel("");
-  				JLabel v = new JLabel("");
-  				
-  				
-  				JLabel ruleNameLabel = new JLabel("Nome da regra");
-  				ruleName = new JTextField();
-  				JLabel vazio1 = new JLabel("");
-  				JLabel v2 = new JLabel("");
-  				
+				codeSm.setBounds(50, 50, 90, 20);
+				JLabel vazio = new JLabel("");
+				JLabel v = new JLabel("");
 
-  				JLabel labelMetrica1 = new JLabel("1º Threshold");
-	  			metricX = new JComboBox<String>();
-	  			metricX.setBounds(50, 50, 90, 20);
-	  			String operadores1[] = {"", "<", ">"};
-	  			operadorRelacional1 = new JComboBox<String>(operadores1);
-	  			operadorRelacional1.setBounds(50, 50, 90, 20);
-	  			metrica1 = new JTextField();
-	  				
 
-	  			JLabel labelMetrica2 = new JLabel("2º Threshold");
-	  			metricY = new JComboBox<String>();
-	  			metricY.setBounds(50, 50, 90, 20);
-	  			//metricY.setSelectedItem(aux.getCodeSmell());
-	  			String operadores2[] = {"", "<", ">"};
-	  			operadorRelacional2 = new JComboBox<String>(operadores2);
-	  			operadorRelacional2.setBounds(50, 50, 90, 20);
+				JLabel ruleNameLabel = new JLabel("Nome da regra");
+				ruleName = new JTextField();
+				JLabel vazio1 = new JLabel("");
+				JLabel v2 = new JLabel("");
 
-	  			metrica2 = new JTextField();
-	  				
-	  			JLabel operadorLogicoLabel = new JLabel("Operador Lógico");
-	  			String operadoresLogico[] = {"", "AND", "OR"};
-	  			operadorLogico = new JComboBox<String>(operadoresLogico);
-	  			operadorLogico.setBounds(50, 50, 90, 20);
-	  			JLabel vazio2 = new JLabel("");
-	  			JLabel v3 = new JLabel("");
-  				
-	  			ruleForm.add(codeSmellLabel);
-	  			ruleForm.add(codeSm);
-	  			ruleForm.add(vazio);
-	  			ruleForm.add(v);
-	  				
-	  			ruleForm.add(ruleNameLabel);
-	  			ruleForm.add(ruleName);
-	  			ruleForm.add(vazio1);
-	  			ruleForm.add(v2);
-	  				
-	  			ruleForm.add(labelMetrica1);
-	  			ruleForm.add(metricX);
-	  			ruleForm.add(operadorRelacional1);
-	 			ruleForm.add(metrica1);
-	  				
-	 			ruleForm.add(labelMetrica2);
-	  			ruleForm.add(metricY);
-	  			ruleForm.add(operadorRelacional2);
-	  			ruleForm.add(metrica2);
-	  				
-	  			ruleForm.add(operadorLogicoLabel);
-	  			ruleForm.add(operadorLogico);
-	  			ruleForm.add(vazio2);
-	  			ruleForm.add(v3);
-					
-	  			popupPanel.add(ruleForm, BorderLayout.CENTER);
-	  			popupPanel.add(criar, BorderLayout.SOUTH);
-	  			d.setSize(410,200);
+
+				JLabel labelMetrica1 = new JLabel("1º Threshold");
+				metricX = new JComboBox<String>();
+				metricX.setBounds(50, 50, 90, 20);
+				String operadores1[] = {"", "<", ">"};
+				operadorRelacional1 = new JComboBox<String>(operadores1);
+				operadorRelacional1.setBounds(50, 50, 90, 20);
+				metrica1 = new JTextField();
+
+
+				JLabel labelMetrica2 = new JLabel("2º Threshold");
+				metricY = new JComboBox<String>();
+				metricY.setBounds(50, 50, 90, 20);
+				//metricY.setSelectedItem(aux.getCodeSmell());
+				String operadores2[] = {"", "<", ">"};
+				operadorRelacional2 = new JComboBox<String>(operadores2);
+				operadorRelacional2.setBounds(50, 50, 90, 20);
+
+				metrica2 = new JTextField();
+
+				JLabel operadorLogicoLabel = new JLabel("Operador Lógico");
+				String operadoresLogico[] = {"", "AND", "OR"};
+				operadorLogico = new JComboBox<String>(operadoresLogico);
+				operadorLogico.setBounds(50, 50, 90, 20);
+				JLabel vazio2 = new JLabel("");
+				JLabel v3 = new JLabel("");
+
+				ruleForm.add(codeSmellLabel);
+				ruleForm.add(codeSm);
+				ruleForm.add(vazio);
+				ruleForm.add(v);
+
+				ruleForm.add(ruleNameLabel);
+				ruleForm.add(ruleName);
+				ruleForm.add(vazio1);
+				ruleForm.add(v2);
+
+				ruleForm.add(labelMetrica1);
+				ruleForm.add(metricX);
+				ruleForm.add(operadorRelacional1);
+				ruleForm.add(metrica1);
+
+				ruleForm.add(labelMetrica2);
+				ruleForm.add(metricY);
+				ruleForm.add(operadorRelacional2);
+				ruleForm.add(metrica2);
+
+				ruleForm.add(operadorLogicoLabel);
+				ruleForm.add(operadorLogico);
+				ruleForm.add(vazio2);
+				ruleForm.add(v3);
+
+				popupPanel.add(ruleForm, BorderLayout.CENTER);
+				popupPanel.add(criar, BorderLayout.SOUTH);
+				d.setSize(410,200);
 				d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
-	  			d.add(popupPanel);
-	  			d.setVisible(true); 
+				d.add(popupPanel);
+				d.setVisible(true); 
 				centerFrame();
 			}
 		});
@@ -477,7 +532,7 @@ public class Gui {
 
 			}
 		});
-		
+
 		codeSm.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -538,27 +593,27 @@ public class Gui {
 				}
 
 				qi_panel.removeAll();
-				
+
 				JLabel dci_label = new JLabel("DCI: ");
 				qi_panel.add(dci_label);
 				JLabel dci_value = new JLabel(Integer.toString(0));
 				qi_panel.add(dci_value);
-				
+
 				JLabel dii_label = new JLabel("DII: ");
 				qi_panel.add(dii_label);
 				JLabel dii_value = new JLabel(Integer.toString(0));
 				qi_panel.add(dii_value);
-				
+
 				JLabel adci_label = new JLabel("ADCI: ");
 				qi_panel.add(adci_label);
 				JLabel adci_value = new JLabel(Integer.toString(0));
 				qi_panel.add(adci_value);
-				
+
 				JLabel adii_label = new JLabel("ADII: ");
 				qi_panel.add(adii_label);
 				JLabel adii_value = new JLabel(Integer.toString(0));
 				qi_panel.add(adii_value);
-				
+
 				for (Map.Entry mapElement : listaRegras.getMap().entrySet()) { 
 					String key = (String)mapElement.getKey();
 					if(key.equals("DCI")) {
@@ -581,7 +636,7 @@ public class Gui {
 				dii_label.setFont(new Font(dii_label.getFont().getName(), Font.BOLD, 18));
 				adci_label.setFont(new Font(adci_label.getFont().getName(), Font.BOLD, 18));
 				adii_label.setFont(new Font(adii_label.getFont().getName(), Font.BOLD, 18));
-				
+
 				dci_value.setFont(new Font(dci_value.getFont().getName(), Font.PLAIN, 18));
 				dii_value.setFont(new Font(dci_value.getFont().getName(), Font.PLAIN, 18));
 				adci_value.setFont(new Font(dci_value.getFont().getName(), Font.PLAIN, 18));
@@ -677,6 +732,12 @@ public class Gui {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
+	/**
+	 * Este método inicializa o GUI.
+	 * 
+	 * @author Francisco Nunes
+	 * @since 2020-12-10
+	 */
 	public void open() {
 		frame.setState(JFrame.NORMAL);
 		frame.setVisible(true);
@@ -685,6 +746,12 @@ public class Gui {
 		centerFrame();
 	}
 
+	/**
+	 * Este método coloca a aplicação do GUI no centro do écra.
+	 * 
+	 * @author Francisco Nunes
+	 * @since 2020-12-10
+	 */
 	public void centerFrame() {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
