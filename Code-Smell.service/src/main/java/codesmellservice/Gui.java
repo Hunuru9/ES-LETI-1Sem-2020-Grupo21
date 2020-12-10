@@ -5,9 +5,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import java.util.Map;
+
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -32,8 +36,9 @@ public class Gui {
 	private JButton filtrar;
 	private JButton Results;
 
-	private DefaultListModel<String> listModelRegras = new DefaultListModel<>();;
-	private DefaultListModel<String> listModelMethods = new DefaultListModel<>();;
+	private DefaultListModel<String> listModelRegras = new DefaultListModel<>();
+	private DefaultListModel<String> listModelMethods = new DefaultListModel<>();
+
 	private JList<String> lista = new JList<>(listModelRegras);
 	private JList<String> listaMethodfilter = new JList<>(listModelMethods);
 
@@ -54,6 +59,12 @@ public class Gui {
 	private RuleSet listaRegras;
 	private Rule aux;
 
+	private final int hGap = 5;
+	private final int vGap = 5;
+
+	private JPanel teste_west = new JPanel(new BorderLayout(hGap,vGap));
+	private JPanel teste_east = new JPanel();
+
 	public Gui(ExcelReader excelReader, RuleSet listaRegras) throws IOException, ClassNotFoundException {
 		this.listaRegras=listaRegras;
 		this.excelReader = excelReader;
@@ -66,7 +77,7 @@ public class Gui {
 		this.painelBotoes = new JPanel(new FlowLayout());
 
 		frame=new JFrame("Code Smells");
-		frame.setLayout(new BorderLayout());
+		frame.setLayout(new BorderLayout(hGap,vGap));
 		frame.setResizable(true);
 		addFrameContent();
 	}
@@ -85,11 +96,10 @@ public class Gui {
 
 		frame.add(painelBotoes, BorderLayout.NORTH);
 
-		final JPanel excelPanel = new JPanel(new BorderLayout());
-		final JPanel regrasPanel = new JPanel(new BorderLayout());
-		final JPanel showcase=new JPanel(new BorderLayout());
-		final JPanel defeitosPanel = new JPanel(new BorderLayout());
-		
+		final JPanel excelPanel = new JPanel(new BorderLayout(hGap,vGap));
+		final JPanel regrasPanel = new JPanel(new BorderLayout(hGap,vGap));
+		final JPanel showcase=new JPanel(new BorderLayout(hGap,vGap));
+		final JPanel defeitosPanel = new JPanel(new BorderLayout(hGap,vGap));
 
 		JTextField bemVindo = new JTextField("Bem Vindo!");
 		showcase.add(bemVindo);
@@ -212,8 +222,9 @@ public class Gui {
 					}
 
 					d = new JDialog(frame, "Regra");
-					JPanel popupPanel = new JPanel(new BorderLayout());
-					JPanel ruleForm = new JPanel(new GridLayout(7,2));
+
+					JPanel popupPanel = new JPanel(new BorderLayout(hGap,vGap));
+					JPanel ruleForm = new JPanel(new GridLayout(7,2,hGap,vGap));
 
 					JLabel codeSmellLabel = new JLabel("Code Smell");
 					String codeSmell[]= {"is_long_method", "is_feature_envy"};
@@ -265,11 +276,12 @@ public class Gui {
 
 					popupPanel.add(ruleForm, BorderLayout.CENTER);
 					popupPanel.add(atualizar, BorderLayout.SOUTH);
-					d.setSize(300,200);
+
+					d.setSize(300,300);
+
 					d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
 					d.add(popupPanel);
 					d.setVisible(true); 
-
 
 				}
 			}
@@ -283,8 +295,11 @@ public class Gui {
 				Dimension tamanhoTela = kit.getScreenSize();
 
 				d = new JDialog(frame, "Regra");
-				JPanel popupPanel = new JPanel(new BorderLayout());
-				JPanel ruleForm = new JPanel(new GridLayout(7,2));
+
+				JPanel popupPanel = new JPanel(new BorderLayout(hGap,vGap));
+				JPanel ruleForm = new JPanel(new GridLayout(7,2,hGap,vGap));
+
+				popupPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
 				JLabel codeSmellLabel = new JLabel("Code Smell");
 				//codeSmell = new JTextField();
@@ -333,10 +348,11 @@ public class Gui {
 
 				popupPanel.add(ruleForm, BorderLayout.CENTER);
 				popupPanel.add(criar, BorderLayout.SOUTH);
-				d.setSize(300,200);
+				d.setSize(300,300);
 				d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
 				d.add(popupPanel);
 				d.setVisible(true); 
+				centerFrame();
 			}
 		});
 
@@ -348,9 +364,10 @@ public class Gui {
 				Toolkit kit = Toolkit.getDefaultToolkit();
 				Dimension tamanhoTela = kit.getScreenSize();
 				d = new JDialog(frame, "Morcela");
-				JPanel popupPanel = new JPanel(new BorderLayout());
-				JPanel comboBoxSegment = new JPanel(new GridLayout(1,2));
-
+				JPanel popupPanel = new JPanel(new BorderLayout(hGap,vGap));
+				JPanel comboBoxSegment = new JPanel(new GridLayout(1,2,hGap,vGap));
+				comboBoxSegment.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+				comboBoxSegment.setSize(400,50);
 				JLabel MethodIDchoice = new JLabel("Escolha uma Regra/Ferramenta");
 				//				String MethodIDlist[]= {"MethodID1", "MethodID2"};
 				String[] RegrasCombobox = new String[listaRegras.getRegras().size() + 2];
@@ -360,31 +377,39 @@ public class Gui {
 					RegrasCombobox[i+2] = listaRegras.getRegras().get(i).getNomeRegra();
 				}
 				MethodIDbox = new JComboBox<String>(RegrasCombobox);
-				MethodIDbox.setBounds(50, 50, 90, 20);
+				//MethodIDbox.setBounds(50, 50, 90, 20);
 
 				comboBoxSegment.add(MethodIDchoice);
 				comboBoxSegment.add(MethodIDbox);
 
 				popupPanel.add(comboBoxSegment,BorderLayout.CENTER);
 				popupPanel.add(Results,BorderLayout.SOUTH);
-				d.setSize(300,200);
+				d.setSize(500,120);
 				d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
 				d.add(popupPanel);
 				d.setVisible(true);
-
+				centerFrame();
 
 			}
 		});
 
 		Results.addActionListener(new java.awt.event.ActionListener() {
+
+			JPanel qi_panel = new JPanel (new GridLayout(4,2,hGap,vGap));
+
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				listModelMethods.removeAllElements();
+				teste_west.remove(scrollMethodID);
 				String MethodIDValue = MethodIDbox.getSelectedItem().toString();
 				if(MethodIDValue.equals("iPlasma") || MethodIDValue.equals("PMD")){
-					listaRegras.excelTools(MethodIDValue);
 					for(int i = 0;i < listaRegras.excelTools(MethodIDValue).size();i++){
+						System.out.println(Integer.toString(listaRegras.excelTools(MethodIDValue).get(i)));
 						listModelMethods.add(i,Integer.toString(listaRegras.excelTools(MethodIDValue).get(i)));
-					}		
+					}	
+					listaRegras.codeSmellIds(aux, "LOC", "CYCLO");
+					listaRegras.quality_indicators(MethodIDValue, listaRegras.getResultadosBool());
+
 				}else{
 					for(int i=0; i!=listaRegras.getRegras().size(); i++) {
 						if(listaRegras.getRegras().get(i).getNomeRegra().equals(MethodIDValue)) {
@@ -397,18 +422,71 @@ public class Gui {
 					switch(fetchCodeSmell){
 					case "is_long_method":
 						resultadoslista = listaRegras.codeSmellIds(aux, "LOC", "CYCLO");
+
+						listaRegras.quality_indicators(fetchCodeSmell, listaRegras.getResultadosBool());
 						break;
 					case "is_feature_envy":
 						resultadoslista = listaRegras.codeSmellIds(aux, "ATFD", "LAA");	
+						listaRegras.quality_indicators(fetchCodeSmell, listaRegras.getResultadosBool());
 						break;
 					}
 					for(int i = 0;i < resultadoslista.size();i++){
+						System.out.println(Integer.toString(resultadoslista.get(i)));
+
 						listModelMethods.add(i,Integer.toString(resultadoslista.get(i)));
 					}				
 
 				}
-				scrollMethodID.add(listaMethodfilter);
-				defeitosPanel.add(scrollMethodID,BorderLayout.WEST);
+
+				qi_panel.removeAll();
+				qi_panel.add(new JLabel("DCI"));
+				JLabel dci_value = new JLabel(Integer.toString(0));
+				qi_panel.add(dci_value);
+				qi_panel.add(new JLabel("DII"));
+				JLabel dii_value = new JLabel(Integer.toString(0));
+				qi_panel.add(dii_value);
+				qi_panel.add(new JLabel("ADCI"));
+				JLabel adci_value = new JLabel(Integer.toString(0));
+				qi_panel.add(adci_value);
+				qi_panel.add(new JLabel("ADII"));
+				JLabel adii_value = new JLabel(Integer.toString(0));
+				qi_panel.add(adii_value);
+				for (Map.Entry mapElement : listaRegras.getMap().entrySet()) { 
+					String key = (String)mapElement.getKey();
+					if(key.equals("DCI")) {
+						dci_value.setText(Integer.toString((Integer)mapElement.getValue()));
+					}else {
+						if(key.equals("DII")) {
+							dii_value.setText(Integer.toString((Integer)mapElement.getValue()));
+						}else {
+							if (key.equals("ADCI")) {
+								adci_value.setText(Integer.toString((Integer)mapElement.getValue()));
+							}else {
+								if (key.equals("ADII")) {
+									adii_value.setText(Integer.toString((Integer)mapElement.getValue()));
+								}
+							}
+						}
+					}
+				}
+				teste_west.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+				scrollMethodID = new JScrollPane(listaMethodfilter, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+				scrollMethodID.setPreferredSize(new Dimension(150,500));
+				DefaultListCellRenderer renderer = (DefaultListCellRenderer) listaMethodfilter.getCellRenderer();
+				renderer.setHorizontalAlignment(JLabel.CENTER);
+				JLabel method_id_title = new JLabel("Method ID's");
+				teste_west.add(method_id_title, BorderLayout.NORTH);
+				method_id_title.setHorizontalAlignment(JLabel.CENTER);
+				//teste_west.add(Box.createVerticalStrut(10));
+				teste_west.add(scrollMethodID, BorderLayout.CENTER);
+				teste_east.add(qi_panel);
+				teste_east.setAlignmentX(Component.CENTER_ALIGNMENT);
+				teste_west.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+				//frame.add(defeitosPanel);
+				frame.revalidate();
+				frame.repaint();
+				centerFrame();
+
 			}
 		});
 
@@ -419,8 +497,10 @@ public class Gui {
 				regrasPanel.add(scroll, BorderLayout.CENTER);
 
 				regrasPanel.add(criarRegra,BorderLayout.NORTH);
-				
-				frame.setSize(1000,1000);
+
+
+				frame.setSize(600,600);
+
 
 				frame.remove(showcase);
 				frame.remove(excelPanel);
@@ -428,7 +508,10 @@ public class Gui {
 				frame.add(regrasPanel);
 				frame.validate();
 				frame.repaint();
-				
+
+				centerFrame();
+
+
 			}
 
 		});
@@ -452,11 +535,10 @@ public class Gui {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				defeitosPanel.add(filtrar,BorderLayout.NORTH);
-				defeitosPanel.add(scrollMethodID,BorderLayout.WEST);
-				scrollMethodID.setVisible(true);
-				JTable hashTable = new JTable();
-				defeitosPanel.add(hashTable,BorderLayout.EAST);
-				frame.setSize(1000,1000);
+
+				defeitosPanel.add(teste_west,BorderLayout.WEST);
+				defeitosPanel.add(teste_east,BorderLayout.CENTER);
+				frame.setSize(600,600);
 
 				frame.remove(showcase);
 				frame.remove(regrasPanel);
@@ -464,6 +546,9 @@ public class Gui {
 				frame.add(defeitosPanel);
 				frame.revalidate();
 				frame.repaint();
+
+				centerFrame();
+
 
 			}
 		});
@@ -477,6 +562,14 @@ public class Gui {
 		frame.setState(JFrame.NORMAL);
 		frame.setVisible(true);
 		frame.setResizable(false);
+
+		centerFrame();
+	}
+
+	public void centerFrame() {
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+
 	}
 
 }
