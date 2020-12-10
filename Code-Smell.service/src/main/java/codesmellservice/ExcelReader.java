@@ -3,7 +3,9 @@ package codesmellservice;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -111,34 +113,21 @@ public class ExcelReader {
 					break;
 				}
 			}
-			System.out.println();
+//			System.out.println();
 		}
 	}
 	
-	public double[] getMetricValues(String metric) {
-		double[] values = new double[this.data.length];
+	public List<String> getColumnValues(String columnName){
+		List<String> columnValues = new ArrayList<>();
 		for(int i = 0; i!= this.columnNames.length; i++) {
-			if(this.columnNames[i].equals(metric)) {
-				for(int j = 0; j!= values.length; j++) {
-					values[j] = Double.valueOf(this.data[j][i]);
-					//System.out.println(values[j]);
+			if(this.columnNames[i].equals(columnName)) {
+				for(int j = 0; j!= this.data.length; j++) {
+					columnValues.add(this.data[j][i]);
+//					System.out.println(columnValues.get(j));
 				}
 			}
 		}
-		return values;
-	}
-	
-	public String[] getStringValues(String tool) {
-		String[] values = new String[this.data.length];
-		for(int i = 0; i!= this.columnNames.length; i++) {
-			if(this.columnNames[i].equals(tool)) {
-				for(int j = 0; j!= values.length; j++) {
-					values[j]=this.data[j][i];
-					//System.out.println(values[j]);
-				}
-			}
-		}
-		return values;
+		return columnValues;
 	}
 
 
