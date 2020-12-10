@@ -9,7 +9,9 @@ import javax.swing.border.Border;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Map;
+
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -36,6 +38,7 @@ public class Gui {
 
 	private DefaultListModel<String> listModelRegras = new DefaultListModel<>();
 	private DefaultListModel<String> listModelMethods = new DefaultListModel<>();
+
 	private JList<String> lista = new JList<>(listModelRegras);
 	private JList<String> listaMethodfilter = new JList<>(listModelMethods);
 
@@ -97,7 +100,6 @@ public class Gui {
 		final JPanel regrasPanel = new JPanel(new BorderLayout(hGap,vGap));
 		final JPanel showcase=new JPanel(new BorderLayout(hGap,vGap));
 		final JPanel defeitosPanel = new JPanel(new BorderLayout(hGap,vGap));
-
 
 		JTextField bemVindo = new JTextField("Bem Vindo!");
 		showcase.add(bemVindo);
@@ -220,6 +222,7 @@ public class Gui {
 					}
 
 					d = new JDialog(frame, "Regra");
+
 					JPanel popupPanel = new JPanel(new BorderLayout(hGap,vGap));
 					JPanel ruleForm = new JPanel(new GridLayout(7,2,hGap,vGap));
 
@@ -273,7 +276,9 @@ public class Gui {
 
 					popupPanel.add(ruleForm, BorderLayout.CENTER);
 					popupPanel.add(atualizar, BorderLayout.SOUTH);
+
 					d.setSize(300,300);
+
 					d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
 					d.add(popupPanel);
 					d.setVisible(true); 
@@ -290,11 +295,12 @@ public class Gui {
 				Dimension tamanhoTela = kit.getScreenSize();
 
 				d = new JDialog(frame, "Regra");
+
 				JPanel popupPanel = new JPanel(new BorderLayout(hGap,vGap));
 				JPanel ruleForm = new JPanel(new GridLayout(7,2,hGap,vGap));
 
 				popupPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-				
+
 				JLabel codeSmellLabel = new JLabel("Code Smell");
 				//codeSmell = new JTextField();
 				String codeSmell[]= {"is_long_method", "is_feature_envy"};
@@ -403,6 +409,7 @@ public class Gui {
 					}	
 					listaRegras.codeSmellIds(aux, "LOC", "CYCLO");
 					listaRegras.quality_indicators(MethodIDValue, listaRegras.getResultadosBool());
+
 				}else{
 					for(int i=0; i!=listaRegras.getRegras().size(); i++) {
 						if(listaRegras.getRegras().get(i).getNomeRegra().equals(MethodIDValue)) {
@@ -415,6 +422,7 @@ public class Gui {
 					switch(fetchCodeSmell){
 					case "is_long_method":
 						resultadoslista = listaRegras.codeSmellIds(aux, "LOC", "CYCLO");
+
 						listaRegras.quality_indicators(fetchCodeSmell, listaRegras.getResultadosBool());
 						break;
 					case "is_feature_envy":
@@ -424,10 +432,12 @@ public class Gui {
 					}
 					for(int i = 0;i < resultadoslista.size();i++){
 						System.out.println(Integer.toString(resultadoslista.get(i)));
+
 						listModelMethods.add(i,Integer.toString(resultadoslista.get(i)));
 					}				
 
 				}
+
 				qi_panel.removeAll();
 				qi_panel.add(new JLabel("DCI"));
 				JLabel dci_value = new JLabel(Integer.toString(0));
@@ -476,6 +486,7 @@ public class Gui {
 				frame.revalidate();
 				frame.repaint();
 				centerFrame();
+
 			}
 		});
 
@@ -487,7 +498,9 @@ public class Gui {
 
 				regrasPanel.add(criarRegra,BorderLayout.NORTH);
 
+
 				frame.setSize(600,600);
+
 
 				frame.remove(showcase);
 				frame.remove(excelPanel);
@@ -495,7 +508,9 @@ public class Gui {
 				frame.add(regrasPanel);
 				frame.validate();
 				frame.repaint();
+
 				centerFrame();
+
 
 			}
 
@@ -520,16 +535,20 @@ public class Gui {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				defeitosPanel.add(filtrar,BorderLayout.NORTH);
+
 				defeitosPanel.add(teste_west,BorderLayout.WEST);
 				defeitosPanel.add(teste_east,BorderLayout.CENTER);
 				frame.setSize(600,600);
+
 				frame.remove(showcase);
 				frame.remove(regrasPanel);
 				frame.remove(excelPanel);
 				frame.add(defeitosPanel);
 				frame.revalidate();
 				frame.repaint();
+
 				centerFrame();
+
 
 			}
 		});
@@ -543,12 +562,14 @@ public class Gui {
 		frame.setState(JFrame.NORMAL);
 		frame.setVisible(true);
 		frame.setResizable(false);
+
 		centerFrame();
 	}
 
 	public void centerFrame() {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+
 	}
 
 }

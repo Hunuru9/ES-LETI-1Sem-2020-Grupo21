@@ -14,19 +14,6 @@ public class App
 		RuleSet ruleSet=new RuleSet(excelReader);
 		Gui gui = new Gui(excelReader, ruleSet);
 		gui.open();
-		
-		Rule r=new Rule("is_long_method");
-        r.setNomeRegra("BOAS");
-        r.setMetricaX(300.0);
-        r.setmetricaXOperator(">");
-        r.setMetricaY(10.0);
-        r.setmetricaYOperator(">");
-        r.setLogicalOperator("AND");
-        List <String> firstColumn=excelReader.getColumnValues("LOC");
-        List <String> secondColumn=excelReader.getColumnValues("CYCLO");
-        String aux=r.getmetricaXOperator()+r.getmetricaYOperator();
-        ruleSet.quality_indicators("PMD", ruleSet.stringValues(aux, r, firstColumn, secondColumn));
-		
     }
 	
 	

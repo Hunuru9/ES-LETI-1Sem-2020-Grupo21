@@ -157,7 +157,9 @@ public class RuleSet {
 	}
 
 	public HashMap<String,Integer> quality_indicators(String tool, List<String> resultados){
+
 		this.map = new HashMap<String,Integer>();
+
         List<String> allValues = excel.getColumnValues(tool); //Valores do long_method por exemplo
         List<String> list_to_compare; //nossos valores
         boolean to_compare;
@@ -205,7 +207,9 @@ public class RuleSet {
     
 	
 	public List<Integer> codeSmellIds(Rule r, String xMetrica, String yMetrica) {
+
 		System.out.println("Tou a entrar na funcao");
+
         List<Integer> valores=new ArrayList<Integer>();
 
         List<String> firstColumn=excel.getColumnValues(xMetrica);
@@ -216,8 +220,10 @@ public class RuleSet {
         String aux=s+s2;
         //System.out.println(aux);
         
+
         this.resultadosBool=stringValues(aux, r, firstColumn, secondColumn);
         valores=methodIDS(this.resultadosBool);
+
 //        for(int i = 0; i != valores.size(); i++){
 //        	System.out.println(valores.get(i));
 //        }
@@ -241,7 +247,9 @@ public class RuleSet {
         for(int i=0; i!=methodId.size(); i++) {
             if(tool.get(i).equals("true")) {
                 int id=(int) Double.parseDouble(methodId.get(i));
+
                 //System.out.println("ID: " + id);
+
                 results.add(id);
             }
         }
