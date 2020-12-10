@@ -11,6 +11,7 @@ public class App
 {
 	public static void main(String[] args) throws IOException, ClassNotFoundException{
 		ExcelReader excelReader = new ExcelReader("Defeitos.xlsx");
+
 		RuleSet lista=new RuleSet(excelReader);
 		Rule r=new Rule("is_long_method");
 		r.setNomeRegra("BOAS");
@@ -29,6 +30,12 @@ public class App
 		//excelReader.getMetricValues("LOC");
 		/*Gui gui = new Gui(excelReader);
 		gui.open();*/
+
+		RuleSet ruleSet=new RuleSet(excelReader);
+		//excelReader.getMetricValues("LOC");
+		Gui gui = new Gui(excelReader, ruleSet);
+		gui.open();
+
     }
 	
 	

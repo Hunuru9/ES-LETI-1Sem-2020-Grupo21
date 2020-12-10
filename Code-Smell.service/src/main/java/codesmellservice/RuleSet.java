@@ -168,5 +168,5 @@ public class RuleSet {
 		}
 		return resultados;
 	}
-	
+
 }
