@@ -26,6 +26,7 @@ public class RuleSet {
 		return lista;
 	}
 	
+
 	public List<String> getResultadosBool(){
 		return this.resultadosBool;
 	}
@@ -36,38 +37,137 @@ public class RuleSet {
 	
 	public List<String> stringValues(String aux, Rule r, List<String> firstColumn, List<String> secondColumn) {
 		List<String> resultados=new ArrayList<String>();
-		//System.out.println(r.getLogicalOperator());
+		System.out.println(r.getLogicalOperator());
 		switch(r.getLogicalOperator()) {
 		case "AND":
 			for(int i=0; i!=firstColumn.size(); i++) {
 				switch(aux) {
 				case ">>":
-					if(Double.parseDouble(firstColumn.get(i))>=r.getMetricaX() && Double.parseDouble(secondColumn.get(i))>=r.getMetricaY()) {
-						resultados.add("true");
+					if(!r.getMetricaXString().equals(r.getMetricaYString())) {
+						if(r.getMetricaXString().equals("LOC") && r.getMetricaYString().equals("CYCLO") || 
+								r.getMetricaXString().equals("ATFD") && r.getMetricaYString().equals("LAA")) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX() && Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY() && Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}else {
-						resultados.add("false");
+						if(r.getMetricaXString().equals("LOC") || r.getMetricaXString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX() && Double.parseDouble(firstColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(secondColumn.get(i))>r.getMetricaX() && Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}
 					break;
 				case "><":
-					if(Double.parseDouble(firstColumn.get(i))>=r.getMetricaX() && Double.parseDouble(secondColumn.get(i))<=r.getMetricaY()) {
-						resultados.add("true");
+					if(!r.getMetricaXString().equals(r.getMetricaYString())) {
+						if(r.getMetricaXString().equals("LOC") && r.getMetricaYString().equals("CYCLO") || 
+								r.getMetricaXString().equals("ATFD") && r.getMetricaYString().equals("LAA")) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX() && Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY() && Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}else {
-						resultados.add("false");
+						if(r.getMetricaXString().equals("LOC") || r.getMetricaXString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX() && Double.parseDouble(firstColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(secondColumn.get(i))>r.getMetricaX() && Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}
 					break;
 				case "<<":
-					//System.out.println(Double.parseDouble(secondColumn.get(i)) + " " + r.getMetricaY());
-					if(Double.parseDouble(firstColumn.get(i))<=r.getMetricaX() && Double.parseDouble(secondColumn.get(i))<=r.getMetricaY()) {
-						resultados.add("true");
+					if(!r.getMetricaXString().equals(r.getMetricaYString())) {
+						if(r.getMetricaXString().equals("LOC") && r.getMetricaYString().equals("CYCLO") || 
+								r.getMetricaXString().equals("ATFD") && r.getMetricaYString().equals("LAA")) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX() && Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY() && Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}else {
-						resultados.add("false");
+						if(r.getMetricaXString().equals("LOC") || r.getMetricaXString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX() && Double.parseDouble(firstColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(secondColumn.get(i))<r.getMetricaX() && Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}
 					break;
 				case "<>":
-					if(Double.parseDouble(firstColumn.get(i))<=r.getMetricaX() && Double.parseDouble(secondColumn.get(i))>=r.getMetricaY()) {
-						resultados.add("true");
+					if(!r.getMetricaXString().equals(r.getMetricaYString())) {
+						if(r.getMetricaXString().equals("LOC") && r.getMetricaYString().equals("CYCLO") || 
+								r.getMetricaXString().equals("ATFD") && r.getMetricaYString().equals("LAA")) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX() && Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY() && Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}else {
-						resultados.add("false");
+						if(r.getMetricaXString().equals("LOC") || r.getMetricaXString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX() && Double.parseDouble(firstColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(secondColumn.get(i))<r.getMetricaX() && Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}
 					break;
 				}
@@ -77,31 +177,131 @@ public class RuleSet {
 			for(int i=0; i!=firstColumn.size(); i++) {
 				switch(aux) {
 				case ">>":
-					if(Double.parseDouble(firstColumn.get(i))>=r.getMetricaX() || Double.parseDouble(secondColumn.get(i))>=r.getMetricaY()) {
-						resultados.add("true");
-					} else {
-						resultados.add("false");
+					if(!r.getMetricaXString().equals(r.getMetricaYString())) {
+						if(r.getMetricaXString().equals("LOC") && r.getMetricaYString().equals("CYCLO") || 
+								r.getMetricaXString().equals("ATFD") && r.getMetricaYString().equals("LAA")) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX() && Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY() && Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
+					}else {
+						if(r.getMetricaXString().equals("LOC") || r.getMetricaXString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX() || Double.parseDouble(firstColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(secondColumn.get(i))>r.getMetricaX() || Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}
 					break;
 				case "><":
-					if(Double.parseDouble(firstColumn.get(i))>=r.getMetricaX() || Double.parseDouble(secondColumn.get(i))<=r.getMetricaY()) {
-						resultados.add("true");
+					if(!r.getMetricaXString().equals(r.getMetricaYString())) {
+						if(r.getMetricaXString().equals("LOC") && r.getMetricaYString().equals("CYCLO") || 
+								r.getMetricaXString().equals("ATFD") && r.getMetricaYString().equals("LAA")) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX() && Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY() && Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}else {
-						resultados.add("false");
+						if(r.getMetricaXString().equals("LOC") || r.getMetricaXString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX() || Double.parseDouble(firstColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(secondColumn.get(i))>r.getMetricaX() || Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}
 					break;
 				case "<<":
-					if(Double.parseDouble(firstColumn.get(i))<=r.getMetricaX() ||  Double.parseDouble(secondColumn.get(i))<=r.getMetricaY()) {
-						resultados.add("true");
+					if(!r.getMetricaXString().equals(r.getMetricaYString())) {
+						if(r.getMetricaXString().equals("LOC") && r.getMetricaYString().equals("CYCLO") || 
+								r.getMetricaXString().equals("ATFD") && r.getMetricaYString().equals("LAA")) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX() && Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY() && Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}else {
-						resultados.add("false");
+						if(r.getMetricaXString().equals("LOC") || r.getMetricaXString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX() || Double.parseDouble(firstColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(secondColumn.get(i))<r.getMetricaX() || Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}
 					break;
 				case "<>":
-					if(Double.parseDouble(firstColumn.get(i))<=r.getMetricaX() || Double.parseDouble(secondColumn.get(i))>=r.getMetricaY()) {	
-						resultados.add("true");
+					if(!r.getMetricaXString().equals(r.getMetricaYString())) {
+						if(r.getMetricaXString().equals("LOC") && r.getMetricaYString().equals("CYCLO") || 
+								r.getMetricaXString().equals("ATFD") && r.getMetricaYString().equals("LAA")) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX() && Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY() && Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}else {
-						resultados.add("false");
+						if(r.getMetricaXString().equals("LOC") || r.getMetricaXString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX() || Double.parseDouble(firstColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}else {
+							if(Double.parseDouble(secondColumn.get(i))<r.getMetricaX() || Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
+						}
 					}
 					break;
 				}
@@ -112,18 +312,33 @@ public class RuleSet {
 				for(int i=0; i!=secondColumn.size(); i++) {
 					switch(aux) {
 					case ">":
-						if(Double.parseDouble(secondColumn.get(i))>=r.getMetricaY()) {
-							resultados.add("true");
+						if(r.getMetricaYString().equals("CYCLO") || r.getMetricaYString().equals("LAA")) {
+							if(Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}else {
-							resultados.add("false");
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}
 						break;
 					case "<":
-						if(Double.parseDouble(secondColumn.get(i))<=r.getMetricaY()) {
-						
-							resultados.add("true");
+						if(r.getMetricaYString().equals("CYCLO") || r.getMetricaYString().equals("LAA")) {
+							if(Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}else {
-							resultados.add("false");
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}
 						break;
 					}
@@ -132,17 +347,33 @@ public class RuleSet {
 				for(int i=0; i!=firstColumn.size(); i++) {
 					switch(aux) {
 					case ">":
-						if(Double.parseDouble(firstColumn.get(i))>=r.getMetricaX()) {	
-							resultados.add("true");
+						if(r.getMetricaXString().equals("LOC") || r.getMetricaXString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}else {
-							resultados.add("false");
+							if(Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}
 						break;
 					case"<":
-						if(Double.parseDouble(firstColumn.get(i))<=r.getMetricaX()) {						
-							resultados.add("true");
+						if(r.getMetricaXString().equals("LOC") || r.getMetricaXString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}else {
-							resultados.add("false");
+							if(Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}
 						break;
 					}
@@ -150,11 +381,10 @@ public class RuleSet {
 			}
 			break;
 		}
-		/*for(int i=0; i!=resultados.size(); i++) {
-			System.out.println(resultados.get(i));
-		}*/
 		return resultados;
 	}
+	
+
 
 	public HashMap<String,Integer> quality_indicators(String tool, List<String> resultados){
 
@@ -256,4 +486,5 @@ public class RuleSet {
        
         return results;
     }
+
 }
