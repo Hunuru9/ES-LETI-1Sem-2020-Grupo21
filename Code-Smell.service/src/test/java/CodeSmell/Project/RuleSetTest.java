@@ -8,7 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
 
 import codesmellservice.App;
 import codesmellservice.ExcelReader;
@@ -18,11 +21,19 @@ import codesmellservice.RuleSet;
 
 public class RuleSetTest {
 	
+	private ExcelReader to_test;
+	private RuleSet teste;
+	
+	@Before
+	public void init() throws ClassNotFoundException, IOException {
+		to_test = new ExcelReader("test.xlsx");
+		teste = new RuleSet(to_test);
+		Gui gui = new Gui(to_test,teste);
+		gui.open();
+	}
 	
 	@Test
 	public void testLOCBANDCYCLOB() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
 		Rule r = new Rule("is_long_method","LOC","CYCLO");
 		r.setMetricaX(4.0);
 		r.setmetricaXOperator(">");
@@ -46,8 +57,6 @@ public class RuleSetTest {
 	
 	@Test
 	public void testCYCLOBANDLOCB() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
 		Rule r = new Rule("is_long_method","CYCLO","LOC");
 		r.setMetricaX(1.0);
 		r.setmetricaXOperator(">");
@@ -71,8 +80,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testLOCBANDLOCB() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","LOC");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -96,8 +104,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testCYCLOBANDCYCLOB() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","CYCLO");
 		r.setMetricaX(1.0);
 		r.setmetricaXOperator(">");
@@ -121,8 +128,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testLOCBANDCYCLOL() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","CYCLO");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -146,8 +152,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testCYCLOBANDLOCL() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","LOC");
 		r.setMetricaX(1.0);
 		r.setmetricaXOperator(">");
@@ -171,8 +176,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testLOCBANDLOCL() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","LOC");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -196,8 +200,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testCYCLOBANDCYCLOL() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","CYCLO");
 		r.setMetricaX(1.0);
 		r.setmetricaXOperator(">");
@@ -221,8 +224,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testLOCLANDCYCLOL() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","CYCLO");
 		r.setMetricaX(29.0);
 		r.setmetricaXOperator("<");
@@ -246,8 +248,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testCYCLOLANDLOCL() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","LOC");
 		r.setMetricaX(2.0);
 		r.setmetricaXOperator("<");
@@ -271,8 +272,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testLOCLANDLOCL() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","LOC");
 		r.setMetricaX(29.0);
 		r.setmetricaXOperator("<");
@@ -296,8 +296,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testCYCLOLANDCYCLOL() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","CYCLO");
 		r.setMetricaX(2.0);
 		r.setmetricaXOperator("<");
@@ -321,8 +320,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testLOCLANDCYCLOB() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","CYCLO");
 		r.setMetricaX(29.0);
 		r.setmetricaXOperator("<");
@@ -346,8 +344,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testCYCLOLANDLOCB() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","LOC");
 		r.setMetricaX(5.0);
 		r.setmetricaXOperator("<");
@@ -371,8 +368,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testLOCLANDLOCB() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","LOC");
 		r.setMetricaX(29.0);
 		r.setmetricaXOperator("<");
@@ -396,8 +392,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testCYCLOLANDCYCLOB() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","CYCLO");
 		r.setMetricaX(5.0);
 		r.setmetricaXOperator("<");
@@ -421,8 +416,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORBB() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","CYCLO");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -446,8 +440,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORBBInv() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","LOC");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -471,8 +464,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORBBEqualLOC() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","LOC");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -496,8 +488,7 @@ public class RuleSetTest {
 	
 //	@Test
 //	public void testStringValuesORBBEqualATFD() throws ClassNotFoundException, IOException {
-//		ExcelReader to_test = new ExcelReader("test.xlsx");
-//		RuleSet teste = new RuleSet(to_test);
+
 //		Rule r = new Rule("is_long_method","ATFD","ATFD");
 //		r.setMetricaX(3.0);
 //		r.setmetricaXOperator(">");
@@ -521,8 +512,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORBBEqualCYCLO() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","CYCLO");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -546,8 +536,7 @@ public class RuleSetTest {
 	
 //	@Test
 //	public void testStringValuesORBBEqualLAA() throws ClassNotFoundException, IOException {
-//		ExcelReader to_test = new ExcelReader("test.xlsx");
-//		RuleSet teste = new RuleSet(to_test);
+
 //		Rule r = new Rule("is_long_method","LAA","LAA");
 //		r.setMetricaX(3.0);
 //		r.setmetricaXOperator(">");
@@ -571,8 +560,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORBL() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","CYCLO");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -596,8 +584,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORBLInv() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","LOC");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -621,8 +608,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORBLEqualLOC() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","LOC");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -646,8 +632,7 @@ public class RuleSetTest {
 	
 //	@Test
 //	public void testStringValuesORBLEqualATFD() throws ClassNotFoundException, IOException {
-//		ExcelReader to_test = new ExcelReader("test.xlsx");
-//		RuleSet teste = new RuleSet(to_test);
+
 //		Rule r = new Rule("is_long_method","ATFD","ATFD");
 //		r.setMetricaX(3.0);
 //		r.setmetricaXOperator(">");
@@ -671,8 +656,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORBLEqualCYCLO() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","CYCLO");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -696,8 +680,7 @@ public class RuleSetTest {
 	
 //	@Test
 //	public void testStringValuesORBLEqualLAA() throws ClassNotFoundException, IOException {
-//		ExcelReader to_test = new ExcelReader("test.xlsx");
-//		RuleSet teste = new RuleSet(to_test);
+
 //		Rule r = new Rule("is_long_method","LAA","LAA");
 //		r.setMetricaX(3.0);
 //		r.setmetricaXOperator(">");
@@ -722,8 +705,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORLL() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","CYCLO");
 		r.setMetricaX(4.0);
 		r.setmetricaXOperator("<");
@@ -747,8 +729,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORLLInv() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","LOC");
 		r.setMetricaX(4.0);
 		r.setmetricaXOperator("<");
@@ -772,8 +753,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORLLEqualLOC() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","LOC");
 		r.setMetricaX(4.0);
 		r.setmetricaXOperator("<");
@@ -797,8 +777,7 @@ public class RuleSetTest {
 	
 //	@Test
 //	public void testStringValuesORLLEqualATFD() throws ClassNotFoundException, IOException {
-//		ExcelReader to_test = new ExcelReader("test.xlsx");
-//		RuleSet teste = new RuleSet(to_test);
+
 //		Rule r = new Rule("is_long_method","ATFD","ATFD");
 //		r.setMetricaX(3.0);
 //		r.setmetricaXOperator("<");
@@ -822,8 +801,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORLLEqualCYCLO() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","CYCLO");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator("<");
@@ -847,8 +825,7 @@ public class RuleSetTest {
 	
 //	@Test
 //	public void testStringValuesORLLEqualLAA() throws ClassNotFoundException, IOException {
-//		ExcelReader to_test = new ExcelReader("test.xlsx");
-//		RuleSet teste = new RuleSet(to_test);
+
 //		Rule r = new Rule("is_long_method","LAA","LAA");
 //		r.setMetricaX(3.0);
 //		r.setmetricaXOperator("<");
@@ -872,8 +849,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORLB() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","CYCLO");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator("<");
@@ -897,8 +873,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORLBInv() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","LOC");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator("<");
@@ -922,8 +897,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORLBEqualLOC() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","LOC");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator("<");
@@ -947,8 +921,7 @@ public class RuleSetTest {
 	
 //	@Test
 //	public void testStringValuesORLBEqualATFD() throws ClassNotFoundException, IOException {
-//		ExcelReader to_test = new ExcelReader("test.xlsx");
-//		RuleSet teste = new RuleSet(to_test);
+
 //		Rule r = new Rule("is_feature_envy","ATFD","ATFD");
 //		r.setMetricaX(0.0);
 //		r.setmetricaXOperator("<");
@@ -972,8 +945,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesORLBEqualCYCLO() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","CYCLO","CYCLO");
 		r.setMetricaX(1.0);
 		r.setmetricaXOperator("<");
@@ -997,8 +969,7 @@ public class RuleSetTest {
 	
 //	@Test
 //	public void testStringValuesORLBEqualLAA() throws ClassNotFoundException, IOException {
-//		ExcelReader to_test = new ExcelReader("test.xlsx");
-//		RuleSet teste = new RuleSet(to_test);
+
 //		Rule r = new Rule("is_long_method","LAA","LAA");
 //		r.setMetricaX(0.0);
 //		r.setmetricaXOperator("<");
@@ -1022,8 +993,7 @@ public class RuleSetTest {
 
 	@Test
 	public void testStringValuesNBCYCLO() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","","CYCLO");
 		r.setMetricaX(0.0);
 		r.setmetricaXOperator("");
@@ -1047,8 +1017,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesNBLOC() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","","LOC");
 		r.setMetricaX(0.0);
 		r.setmetricaXOperator("");
@@ -1072,8 +1041,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesNLLOC() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","","LOC");
 		r.setMetricaX(0.0);
 		r.setmetricaXOperator("");
@@ -1097,8 +1065,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesBNLOC() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","");
 		r.setMetricaX(3.0);
 		r.setmetricaXOperator(">");
@@ -1122,8 +1089,7 @@ public class RuleSetTest {
 	
 	@Test
 	public void testStringValuesLNLOC() throws ClassNotFoundException, IOException {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
+
 		Rule r = new Rule("is_long_method","LOC","");
 		r.setMetricaX(4.0);
 		r.setmetricaXOperator("<");
@@ -1212,8 +1178,6 @@ public class RuleSetTest {
 	
 	@Test
 	public void testExcelTools() {
-		ExcelReader to_test = new ExcelReader("test.xlsx");
-		RuleSet teste = new RuleSet(to_test);
 		List<Integer> result = teste.excelTools("PMD");
 		List<Integer> expected = new ArrayList<>();
 		expected.add(3);

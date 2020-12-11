@@ -391,7 +391,6 @@ public class RuleSet {
 				for(int i=0; i!=secondColumn.size(); i++) {
 					switch(aux) {
 					case ">":
-
 						if(Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
 							resultados.add("true");
 						}else {
@@ -399,7 +398,6 @@ public class RuleSet {
 						}
 						break;
 					case "<":
-
 						if(Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
 							resultados.add("true");
 						}else {
@@ -412,22 +410,18 @@ public class RuleSet {
 				for(int i=0; i!=firstColumn.size(); i++) {
 					switch(aux) {
 					case ">":
-
 						if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX()) {
 							resultados.add("true");
 						}else {
 							resultados.add("false");
 						}
-
 						break;
 					case"<":
-
 						if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX()) {
 							resultados.add("true");
 						}else {
 							resultados.add("false");
 						}
-
 						break;
 					}
 				}	
