@@ -41,7 +41,7 @@ public class RuleSet {
 		resultadosBool = new ArrayList<String>();
 		this.map = new HashMap<>(); 
 	}
-	
+
 	/**
 	 * Método para adicionar uma regra à lista de regras
 	 * @param rule Regra dada para adicionar à lista de regras 
@@ -65,7 +65,7 @@ public class RuleSet {
 	public List<Rule> getRegras() {
 		return lista;
 	}
-	
+
 	/**
 	 * Método para obter uma lista de resultados da análise de codeSmells de cada método declarado no ficheiro excel
 	 * @results é devolvida uma lista strings com os resultados da análise
@@ -77,7 +77,7 @@ public class RuleSet {
 	public List<String> getResultadosBool(){
 		return this.resultadosBool;
 	}
-	
+
 	/**
 	 * Método que retorna um HashMap com as siglas dos indicadores de qualidade e os seus respectivos
 	 * valores, de uma determinada regra ou ferramenta.
@@ -92,7 +92,7 @@ public class RuleSet {
 	public HashMap<String, Integer> getMap(){
 		return this.map;
 	}
-	
+
 	/**
 	 * Neste método é feita a análise de codeSmells de uma determinada regra escolhida pelo utilizador, 
 	 * a partir da comparação de duas listas, onde estas são valores das métricas retiradas do ficheiro 
@@ -462,72 +462,61 @@ public class RuleSet {
 		}
 		return resultados;
 	}
-	
+
 	/**
-    * O método tem como função calcular o número de DCI's, DII's, ADCI's e ADII's da regra do utilizador ou da
-    * ferramenta PMD e iPlasma.
-    * O cálculo é feito através da comparação da lista dos resultados dado como parâmetro com a coluna do tipo de 
-    * codeSmell da regra caso não seja PMD ou iPlasma. No caso do PMD ou do iPlasma compara-se a coluna da 
-    * ferramenta PMD / iPlasma com a coluna do is_long_method.
-    * @param tool String da ferramenta / do tipo de codeSmell utilizado na regra definida pelo utilizador
-    * @param resultados Lista de resultados provenientes da comparação das thresholds da regra escolhida pelo               
-    * utilizador, com os valores das colunas das métricas dadas como parâmetro, do ficheiro excel.
-    * @return É devolvido um HashMap<K,V> em que as key's referem-se aos DCI, DII, ADCI e ADII e os Values
-    * referem-se à contagem de cada um deles 
-    * 
-    * @author Hugo Silva
-    * @since 2020-12-10
-    * 
-    */
-	public HashMap<String,Integer> quality_indicators(String tool, List<String> resultados){
+	 * O método tem como função calcular o número de DCI's, DII's, ADCI's e ADII's da regra do utilizador ou da
+	 * ferramenta PMD e iPlasma.
+	 * O cálculo é feito através da comparação da lista dos resultados dado como parâmetro com a coluna do tipo de 
+	 * codeSmell da regra caso não seja PMD ou iPlasma. No caso do PMD ou do iPlasma compara-se a coluna da 
+	 * ferramenta PMD / iPlasma com a coluna do is_long_method.
+	 * @param tool String da ferramenta / do tipo de codeSmell utilizado na regra definida pelo utilizador
+	 * @param resultados Lista de resultados provenientes da comparação das thresholds da regra escolhida pelo               
+	 * utilizador, com os valores das colunas das métricas dadas como parâmetro, do ficheiro excel.
+	 * @return É devolvido um HashMap<K,V> em que as key's referem-se aos DCI, DII, ADCI e ADII e os Values
+	 * referem-se à contagem de cada um deles 
+	 * 
+	 * @author Hugo Silva
+	 * @since 2020-12-10
+	 * 
+	 */
+	public HashMap<String,Integer> qualityIndicators(String tool, List<String> resultados){
 
 		this.map = new HashMap<String,Integer>();
 
-        List<String> allValues = excel.getColumnValues(tool); //Valores do long_method por exemplo
-        List<String> list_to_compare; //nossos valores
-        boolean to_compare;
-        if(tool.equals("PMD") || tool.equals("iPlasma")) {
-            list_to_compare = excel.getColumnValues(tool);
-            allValues = excel.getColumnValues("is_long_method");
-        }else {
-            allValues = excel.getColumnValues(tool);
-            list_to_compare = resultados;
-        }
-        for(int i = 0; i <= allValues.size()-1; i++) {
-            if(Boolean.parseBoolean(list_to_compare.get(i)) &&  Boolean.parseBoolean(allValues.get(i))) {
-                if(map.containsKey("DCI")) {
-                    this.map.put("DCI", map.get("DCI") + 1);
-                }else {
-                    this.map.put("DCI", 1);
-                }
-            }else 
-                if (Boolean.parseBoolean(list_to_compare.get(i)) && !Boolean.parseBoolean(allValues.get(i)) ){
-                    if(map.containsKey("DII")) {
-                        this.map.put("DII", map.get("DII") + 1);
-                    }else {
-                        this.map.put("DII", 1);
-                    }
-                }
-                else
-                    if (!Boolean.parseBoolean(list_to_compare.get(i)) && !Boolean.parseBoolean(allValues.get(i)) ){
-                        if(map.containsKey("ADCI")) {
-                            this.map.put("ADCI", map.get("ADCI") + 1);
-                        }else {
-                            this.map.put("ADCI", 1);
-                        }
-                    }
-                    else {
-                        if(map.containsKey("ADII")) {
-                            this.map.put("ADII", map.get("ADII") + 1);
-                        }else {
-                            this.map.put("ADII", 1);
-                        }
-                    }
-        }
-        System.out.println(this.map.toString());
-        return this.map;
-    }
-    
+		List<String> allValues = excel.getColumnValues(tool); //Valores do long_method por exemplo
+		List<String> list_to_compare; //nossos valores
+		boolean to_compare;
+		if(tool.equals("PMD") || tool.equals("iPlasma")) {
+			list_to_compare = excel.getColumnValues(tool);
+			allValues = excel.getColumnValues("is_long_method");
+		}else {
+			allValues = excel.getColumnValues(tool);
+			list_to_compare = resultados;
+		}
+		this.map.put("DCI", 0);
+		this.map.put("DII", 0);
+		this.map.put("ADCI", 0);
+		this.map.put("ADII", 0);
+		for(int i = 0; i <= allValues.size()-1; i++) {
+			if(Boolean.parseBoolean(list_to_compare.get(i)) &&  Boolean.parseBoolean(allValues.get(i))) {
+				this.map.put("DCI", map.get("DCI") + 1);
+
+			}else 
+				if (Boolean.parseBoolean(list_to_compare.get(i)) && !Boolean.parseBoolean(allValues.get(i)) ){
+					this.map.put("DII", map.get("DII") + 1);
+				}
+				else
+					if (!Boolean.parseBoolean(list_to_compare.get(i)) && !Boolean.parseBoolean(allValues.get(i)) ){
+						this.map.put("ADCI", map.get("ADCI") + 1);
+					}
+					else {
+						this.map.put("ADII", map.get("ADII") + 1);
+					}
+		}
+		System.out.println(this.map.toString());
+		return this.map;
+	}
+
 	/**
 	 * Este método utiliza dois métodos(stringValues e methodIDS) para obter resultados (se uma determinado
 	 * método tem codeSmell ou não) numa lista de strings e posteriormente filtrar estes resultados para apresentar
@@ -544,20 +533,20 @@ public class RuleSet {
 	 */
 	public List<Integer> codeSmellIds(Rule r, String xMetrica, String yMetrica) {
 
-        List<Integer> valores=new ArrayList<Integer>();
+		List<Integer> valores=new ArrayList<Integer>();
 
-        List<String> firstColumn=excel.getColumnValues(xMetrica);
-        List<String> secondColumn=excel.getColumnValues(yMetrica);
+		List<String> firstColumn=excel.getColumnValues(xMetrica);
+		List<String> secondColumn=excel.getColumnValues(yMetrica);
 
-        String s=r.getmetricaXOperator();
-        String s2=r.getmetricaYOperator();
-        String aux=s+s2;
+		String s=r.getmetricaXOperator();
+		String s2=r.getmetricaYOperator();
+		String aux=s+s2;
 
-        this.resultadosBool=stringValues(aux, r, firstColumn, secondColumn);
-        valores=methodIDS(this.resultadosBool);
+		this.resultadosBool=stringValues(aux, r, firstColumn, secondColumn);
+		valores=methodIDS(this.resultadosBool);
 
-        return valores;
-    }
+		return valores;
+	}
 
 	/**
 	 * Neste método é feita a filtragem de uma lista que contém os resultados dos métodos 
@@ -571,17 +560,17 @@ public class RuleSet {
 	 * @since 2020-12-10
 	 * 
 	 */
-    public List<Integer> methodIDS(List<String> values)  {
-        List<Integer> methodIds=new ArrayList<Integer>();
-        for(int i=0; i!=values.size(); i++)  {
-            if(values.get(i).equals("true")) {
-                methodIds.add(1+i);
-            }
-        }
-        return methodIds;
-    }
-    
-    /**
+	public List<Integer> methodIDS(List<String> values)  {
+		List<Integer> methodIds=new ArrayList<Integer>();
+		for(int i=0; i!=values.size(); i++)  {
+			if(values.get(i).equals("true")) {
+				methodIds.add(1+i);
+			}
+		}
+		return methodIds;
+	}
+
+	/**
 	 * Neste método, é feita a filtragem dos method ID's que têm codeSmells, apenas das ferramentas (
 	 * iPlasma ou PMD) que estão descritas no Excel.
 	 * 
@@ -592,21 +581,21 @@ public class RuleSet {
 	 * @since 2020-12-10
 	 * 
 	 */
-    public List<Integer> excelTools(String ferramenta) {
-    	List<String> tool = excel.getColumnValues(ferramenta);
-        List<String> methodId= excel.getColumnValues("MethodID");
-        List<Integer> results=new ArrayList<Integer>();
-        for(int i=0; i!=methodId.size(); i++) {
-            if(tool.get(i).equals("true")) {
-                int id=(int) Double.parseDouble(methodId.get(i));
+	public List<Integer> excelTools(String ferramenta) {
+		List<String> tool = excel.getColumnValues(ferramenta);
+		List<String> methodId= excel.getColumnValues("MethodID");
+		List<Integer> results=new ArrayList<Integer>();
+		for(int i=0; i!=methodId.size(); i++) {
+			if(tool.get(i).equals("true")) {
+				int id=(int) Double.parseDouble(methodId.get(i));
 
-                //System.out.println("ID: " + id);
+				//System.out.println("ID: " + id);
 
-                results.add(id);
-            }
-        }
-       
-        return results;
-    }
+				results.add(id);
+			}
+		}
+
+		return results;
+	}
 
 }

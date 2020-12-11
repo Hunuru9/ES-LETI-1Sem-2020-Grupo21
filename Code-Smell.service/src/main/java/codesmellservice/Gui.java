@@ -562,7 +562,7 @@ public class Gui {
 						listModelMethods.add(i,Integer.toString(listaRegras.excelTools(MethodIDValue).get(i)));
 					}	
 					listaRegras.codeSmellIds(aux, "LOC", "CYCLO");
-					listaRegras.quality_indicators(MethodIDValue, listaRegras.getResultadosBool());
+					listaRegras.qualityIndicators(MethodIDValue, listaRegras.getResultadosBool());
 
 				}else{
 					for(int i=0; i!=listaRegras.getRegras().size(); i++) {
@@ -577,11 +577,11 @@ public class Gui {
 					case "is_long_method":
 						resultadoslista = listaRegras.codeSmellIds(aux, "LOC", "CYCLO");
 
-						listaRegras.quality_indicators(fetchCodeSmell, listaRegras.getResultadosBool());
+						listaRegras.qualityIndicators(fetchCodeSmell, listaRegras.getResultadosBool());
 						break;
 					case "is_feature_envy":
 						resultadoslista = listaRegras.codeSmellIds(aux, "ATFD", "LAA");	
-						listaRegras.quality_indicators(fetchCodeSmell, listaRegras.getResultadosBool());
+						listaRegras.qualityIndicators(fetchCodeSmell, listaRegras.getResultadosBool());
 						break;
 					}
 					for(int i = 0;i < resultadoslista.size();i++){
