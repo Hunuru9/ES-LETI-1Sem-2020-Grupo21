@@ -1,0 +1,4 @@
+codesmellservice.Gui	public void addFrameContent() 	showcase	B1	0/3
+codesmellservice.Gui	public void open() 	frame	B1	0/3
+codesmellservice.RuleSet	public HashMap<java.lang.String,java.lang.Integer> qualityIndicators(java.lang.String, List<java.lang.String>) 	allValues	B1	1/4
+codesmellservice.RuleSet	public HashMap<java.lang.String,java.lang.Integer> qualityIndicators(java.lang.String, List<java.lang.String>) 	list_to_compare	B1	1/4

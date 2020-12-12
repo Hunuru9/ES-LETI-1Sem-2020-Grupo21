@@ -1,0 +1,2 @@
+Refactoring Type	Source Entity	Target Class	Source/Target accessed members	Rate it!
+Move Method	codesmellservice.RuleSet::stringValues(java.lang.String, codesmellservice.Rule, java.util.List<java.lang.String>, java.util.List<java.lang.String>):java.util.List<java.lang.String>	codesmellservice.Rule	0/5	
