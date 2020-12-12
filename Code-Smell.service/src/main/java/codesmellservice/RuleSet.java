@@ -39,7 +39,7 @@ public class RuleSet {
 		this.excel=excel;
 		lista=new ArrayList<Rule>();
 		resultadosBool = new ArrayList<String>();
-		this.map = new HashMap<>(); 
+		this.map = new HashMap<>();
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class RuleSet {
 								resultados.add("false");
 							}
 						}else {
-							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX() && Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY() && Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
 								resultados.add("true");
 							}else {
 								resultados.add("false");
@@ -163,7 +163,7 @@ public class RuleSet {
 								resultados.add("false");
 							}
 						}else {
-							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX() && Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY() && Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
 								resultados.add("true");
 							}else {
 								resultados.add("false");
@@ -195,7 +195,7 @@ public class RuleSet {
 								resultados.add("false");
 							}
 						}else {
-							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX() && Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY() && Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
 								resultados.add("true");
 							}else {
 								resultados.add("false");
@@ -363,8 +363,10 @@ public class RuleSet {
 						}else {
 							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY() || Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
 								resultados.add("true");
+								System.out.println("true");
 							}else {
 								resultados.add("false");
+								System.out.println("false");
 							}
 						}
 					}else {
@@ -391,17 +393,33 @@ public class RuleSet {
 				for(int i=0; i!=secondColumn.size(); i++) {
 					switch(aux) {
 					case ">":
-						if(Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
-							resultados.add("true");
+						if(r.getMetricaYString().equals("LOC") || r.getMetricaYString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}else {
-							resultados.add("false");
+							if(Double.parseDouble(secondColumn.get(i))>r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}
 						break;
 					case "<":
-						if(Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
-							resultados.add("true");
+						if(r.getMetricaYString().equals("LOC") || r.getMetricaYString().equals("ATFD")) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}else {
-							resultados.add("false");
+							if(Double.parseDouble(secondColumn.get(i))<r.getMetricaY()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}
 						break;
 					}
@@ -410,17 +428,33 @@ public class RuleSet {
 				for(int i=0; i!=firstColumn.size(); i++) {
 					switch(aux) {
 					case ">":
-						if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX()) {
-							resultados.add("true");
+						if(r.getMetricaXString().equals("CYCLO") || r.getMetricaXString().equals("LAA")) {
+							if(Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}else {
-							resultados.add("false");
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}
 						break;
 					case"<":
-						if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX()) {
-							resultados.add("true");
+						if(r.getMetricaXString().equals("CYCLO") || r.getMetricaXString().equals("LAA")) {
+							if(Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}else {
-							resultados.add("false");
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaX()) {
+								resultados.add("true");
+							}else {
+								resultados.add("false");
+							}
 						}
 						break;
 					}
@@ -502,15 +536,27 @@ public class RuleSet {
 	public List<Integer> codeSmellIds(Rule r, String xMetrica, String yMetrica) {
 
 		List<Integer> valores=new ArrayList<Integer>();
+		String aux=xMetrica+yMetrica;
+		switch(aux) {
+		case "CYCLOLOC":
+			xMetrica="LOC";
+			yMetrica="CYCLO";
+			break;
+		case "LAAATFD":
+			xMetrica="ATFD";
+			yMetrica="LAA";
+		}
 
 		List<String> firstColumn=excel.getColumnValues(xMetrica);
 		List<String> secondColumn=excel.getColumnValues(yMetrica);
 
 		String s=r.getmetricaXOperator();
 		String s2=r.getmetricaYOperator();
-		String aux=s+s2;
-
-		this.resultadosBool=stringValues(aux, r, firstColumn, secondColumn);
+		String aux2=s+s2;
+		System.out.println(aux2);
+		System.out.println(xMetrica);
+		System.out.println(yMetrica);
+		this.resultadosBool=stringValues(aux2, r, firstColumn, secondColumn);
 		valores=methodIDS(this.resultadosBool);
 
 		return valores;
