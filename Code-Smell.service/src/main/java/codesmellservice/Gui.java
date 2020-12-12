@@ -415,84 +415,89 @@ public class Gui {
 
 				Toolkit kit = Toolkit.getDefaultToolkit();
 				Dimension tamanhoTela = kit.getScreenSize();
+				
+				if(codeSm.getSelectedItem().equals("is_long_method") || codeSm.getSelectedItem().equals("is_feature_envy")) {
+					codeSm.setSelectedIndex(0);
+				}else {
 
-				d = new JDialog(frame, "Regra");
-
-				JPanel popupPanel = new JPanel(new BorderLayout(hGap,vGap));
-				JPanel ruleForm = new JPanel(new GridLayout(5,4,hGap,vGap));
-
-				popupPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-				JLabel codeSmellLabel = new JLabel("Code Smell");
-				codeSm.setBounds(50, 50, 90, 20);
-				JLabel vazio = new JLabel("");
-				JLabel v = new JLabel("");
-
-
-				JLabel ruleNameLabel = new JLabel("Nome da regra");
-				ruleName = new JTextField();
-				JLabel vazio1 = new JLabel("");
-				JLabel v2 = new JLabel("");
-
-
-				JLabel labelMetrica1 = new JLabel("1º Threshold");
-				metricX = new JComboBox<String>();
-				metricX.setBounds(50, 50, 90, 20);
-				String operadores1[] = {"", "<", ">"};
-				operadorRelacional1 = new JComboBox<String>(operadores1);
-				operadorRelacional1.setBounds(50, 50, 90, 20);
-				metrica1 = new JTextField();
-
-
-				JLabel labelMetrica2 = new JLabel("2º Threshold");
-				metricY = new JComboBox<String>();
-				metricY.setBounds(50, 50, 90, 20);
-				//metricY.setSelectedItem(aux.getCodeSmell());
-				String operadores2[] = {"", "<", ">"};
-				operadorRelacional2 = new JComboBox<String>(operadores2);
-				operadorRelacional2.setBounds(50, 50, 90, 20);
-
-				metrica2 = new JTextField();
-
-				JLabel operadorLogicoLabel = new JLabel("Operador Lógico");
-				String operadoresLogico[] = {"", "AND", "OR"};
-				operadorLogico = new JComboBox<String>(operadoresLogico);
-				operadorLogico.setBounds(50, 50, 90, 20);
-				JLabel vazio2 = new JLabel("");
-				JLabel v3 = new JLabel("");
-
-				ruleForm.add(codeSmellLabel);
-				ruleForm.add(codeSm);
-				ruleForm.add(vazio);
-				ruleForm.add(v);
-
-				ruleForm.add(ruleNameLabel);
-				ruleForm.add(ruleName);
-				ruleForm.add(vazio1);
-				ruleForm.add(v2);
-
-				ruleForm.add(labelMetrica1);
-				ruleForm.add(metricX);
-				ruleForm.add(operadorRelacional1);
-				ruleForm.add(metrica1);
-
-				ruleForm.add(labelMetrica2);
-				ruleForm.add(metricY);
-				ruleForm.add(operadorRelacional2);
-				ruleForm.add(metrica2);
-
-				ruleForm.add(operadorLogicoLabel);
-				ruleForm.add(operadorLogico);
-				ruleForm.add(vazio2);
-				ruleForm.add(v3);
-
-				popupPanel.add(ruleForm, BorderLayout.CENTER);
-				popupPanel.add(criar, BorderLayout.SOUTH);
-				d.setSize(410,200);
-				d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
-				d.add(popupPanel);
-				d.setVisible(true); 
-				centerFrame();
+					d = new JDialog(frame, "Regra");
+	
+					JPanel popupPanel = new JPanel(new BorderLayout(hGap,vGap));
+					JPanel ruleForm = new JPanel(new GridLayout(5,4,hGap,vGap));
+	
+					popupPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+	
+					JLabel codeSmellLabel = new JLabel("Code Smell");
+					codeSm.setBounds(50, 50, 90, 20);
+					JLabel vazio = new JLabel("");
+					JLabel v = new JLabel("");
+	
+	
+					JLabel ruleNameLabel = new JLabel("Nome da regra");
+					ruleName = new JTextField();
+					JLabel vazio1 = new JLabel("");
+					JLabel v2 = new JLabel("");
+	
+	
+					JLabel labelMetrica1 = new JLabel("1º Threshold");
+					metricX = new JComboBox<String>();
+					metricX.setBounds(50, 50, 90, 20);
+					String operadores1[] = {"", "<", ">"};
+					operadorRelacional1 = new JComboBox<String>(operadores1);
+					operadorRelacional1.setBounds(50, 50, 90, 20);
+					metrica1 = new JTextField();
+	
+	
+					JLabel labelMetrica2 = new JLabel("2º Threshold");
+					metricY = new JComboBox<String>();
+					metricY.setBounds(50, 50, 90, 20);
+					//metricY.setSelectedItem(aux.getCodeSmell());
+					String operadores2[] = {"", "<", ">"};
+					operadorRelacional2 = new JComboBox<String>(operadores2);
+					operadorRelacional2.setBounds(50, 50, 90, 20);
+	
+					metrica2 = new JTextField();
+	
+					JLabel operadorLogicoLabel = new JLabel("Operador Lógico");
+					String operadoresLogico[] = {"", "AND", "OR"};
+					operadorLogico = new JComboBox<String>(operadoresLogico);
+					operadorLogico.setBounds(50, 50, 90, 20);
+					JLabel vazio2 = new JLabel("");
+					JLabel v3 = new JLabel("");
+	
+					ruleForm.add(codeSmellLabel);
+					ruleForm.add(codeSm);
+					ruleForm.add(vazio);
+					ruleForm.add(v);
+	
+					ruleForm.add(ruleNameLabel);
+					ruleForm.add(ruleName);
+					ruleForm.add(vazio1);
+					ruleForm.add(v2);
+	
+					ruleForm.add(labelMetrica1);
+					ruleForm.add(metricX);
+					ruleForm.add(operadorRelacional1);
+					ruleForm.add(metrica1);
+	
+					ruleForm.add(labelMetrica2);
+					ruleForm.add(metricY);
+					ruleForm.add(operadorRelacional2);
+					ruleForm.add(metrica2);
+	
+					ruleForm.add(operadorLogicoLabel);
+					ruleForm.add(operadorLogico);
+					ruleForm.add(vazio2);
+					ruleForm.add(v3);
+	
+					popupPanel.add(ruleForm, BorderLayout.CENTER);
+					popupPanel.add(criar, BorderLayout.SOUTH);
+					d.setSize(410,200);
+					d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
+					d.add(popupPanel);
+					d.setVisible(true); 
+					centerFrame();
+				}
 			}
 		});
 
