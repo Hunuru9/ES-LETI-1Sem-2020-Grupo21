@@ -163,7 +163,7 @@ public class RuleSet {
 								resultados.add("false");
 							}
 						}else {
-							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY() && Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY() && Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
 								resultados.add("true");
 							}else {
 								resultados.add("false");
@@ -227,7 +227,7 @@ public class RuleSet {
 								resultados.add("false");
 							}
 						}else {
-							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY() && Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY() && Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
 								resultados.add("true");
 							}else {
 								resultados.add("false");
@@ -297,7 +297,7 @@ public class RuleSet {
 								resultados.add("false");
 							}
 						}else {
-							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY() || Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
+							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY() || Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
 								resultados.add("true");
 							}else {
 								resultados.add("false");
@@ -361,7 +361,7 @@ public class RuleSet {
 								resultados.add("false");
 							}
 						}else {
-							if(Double.parseDouble(firstColumn.get(i))<r.getMetricaY() || Double.parseDouble(secondColumn.get(i))>r.getMetricaX()) {
+							if(Double.parseDouble(firstColumn.get(i))>r.getMetricaY() || Double.parseDouble(secondColumn.get(i))<r.getMetricaX()) {
 								resultados.add("true");
 								System.out.println("true");
 							}else {
@@ -536,13 +536,11 @@ public class RuleSet {
 	public List<Integer> codeSmellIds(Rule r, String xMetrica, String yMetrica) {
 
 		List<Integer> valores=new ArrayList<Integer>();
-		String aux=xMetrica+yMetrica;
-		switch(aux) {
-		case "CYCLOLOC":
+//		String aux=xMetrica+yMetrica;
+		if(xMetrica.equals("LOC") || xMetrica.equals("CYCLO") || yMetrica.equals("LOC") || yMetrica.equals("CYCLO")) {
 			xMetrica="LOC";
 			yMetrica="CYCLO";
-			break;
-		case "LAAATFD":
+		}else {
 			xMetrica="ATFD";
 			yMetrica="LAA";
 		}

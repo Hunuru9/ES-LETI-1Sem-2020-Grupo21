@@ -314,6 +314,10 @@ public class Gui {
 
 					JPanel popupPanel = new JPanel(new BorderLayout(hGap,vGap));
 					JPanel ruleForm = new JPanel(new GridLayout(5,4,hGap,vGap));
+					JPanel info = new JPanel(new BorderLayout(hGap,vGap));
+					
+					JLabel infoLabel = new JLabel("Para criar uma regra, primeiro tem que escolher um codeSmell !");
+					info.add(infoLabel);
 
 					JLabel codeSmellLabel = new JLabel("Code Smell");
 					//String codeSmell[]= {"", "is_long_method", "is_feature_envy"};
@@ -382,7 +386,6 @@ public class Gui {
 					ruleForm.add(vazio1);
 					ruleForm.add(v2);
 
-
 					ruleForm.add(labelMetrica1);
 					ruleForm.add(metricX);
 					ruleForm.add(operadorRelacional1);
@@ -398,9 +401,10 @@ public class Gui {
 					ruleForm.add(vazio2);
 					ruleForm.add(v3);
 
+					popupPanel.add(info, BorderLayout.NORTH);
 					popupPanel.add(ruleForm, BorderLayout.CENTER);
 					popupPanel.add(atualizar, BorderLayout.SOUTH);
-					d.setSize(410,200);
+					d.setSize(450,240);
 					d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
 					d.add(popupPanel);
 					d.setVisible(true);
@@ -424,8 +428,12 @@ public class Gui {
 	
 					JPanel popupPanel = new JPanel(new BorderLayout(hGap,vGap));
 					JPanel ruleForm = new JPanel(new GridLayout(5,4,hGap,vGap));
+					JPanel info = new JPanel(new BorderLayout(hGap,vGap));
 	
 					popupPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+					
+					JLabel infoLabel = new JLabel("Para criar uma regra, primeiro tem que escolher um codeSmell !");
+					info.add(infoLabel);
 	
 					JLabel codeSmellLabel = new JLabel("Code Smell");
 					codeSm.setBounds(50, 50, 90, 20);
@@ -489,10 +497,11 @@ public class Gui {
 					ruleForm.add(operadorLogico);
 					ruleForm.add(vazio2);
 					ruleForm.add(v3);
-	
+					
+					popupPanel.add(info, BorderLayout.NORTH);
 					popupPanel.add(ruleForm, BorderLayout.CENTER);
 					popupPanel.add(criar, BorderLayout.SOUTH);
-					d.setSize(410,200);
+					d.setSize(450,240);
 					d.setLocation(tamanhoTela.width/2-d.getWidth()/2, tamanhoTela.height/2-d.getHeight()/2);
 					d.add(popupPanel);
 					d.setVisible(true); 

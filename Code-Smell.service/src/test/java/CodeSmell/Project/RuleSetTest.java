@@ -592,12 +592,12 @@ public class RuleSetTest {
 		r.setLogicalOperator("OR");
 		teste.codeSmellIds(r, r.getMetricaXString(), r.getMetricaYString());		
 		List<String> expected_list = new ArrayList<>();
-		expected_list.add("true");
-		expected_list.add("true");
-		expected_list.add("true");
-		expected_list.add("true");
-		expected_list.add("true");
-		expected_list.add("true");
+		expected_list.add("false");
+		expected_list.add("false");
+		expected_list.add("false");
+		expected_list.add("false");
+		expected_list.add("false");
+		expected_list.add("false");
 		expected_list.add("true");
 		expected_list.add("false");
 		expected_list.add("false");
@@ -739,10 +739,10 @@ public class RuleSetTest {
 		List<String> expected_list = new ArrayList<>();
 		expected_list.add("true");
 		expected_list.add("true");
-		expected_list.add("false");
-		expected_list.add("false");
-		expected_list.add("false");
-		expected_list.add("false");
+		expected_list.add("true");
+		expected_list.add("true");
+		expected_list.add("true");
+		expected_list.add("true");
 		expected_list.add("false");
 		expected_list.add("true");
 		expected_list.add("true");
@@ -874,22 +874,22 @@ public class RuleSetTest {
 	public void testStringValuesORLBInv() throws ClassNotFoundException, IOException {
 
 		Rule r = new Rule("is_long_method","CYCLO","LOC");
-		r.setMetricaX(3.0);
+		r.setMetricaX(2.0);
 		r.setmetricaXOperator("<");
-		r.setMetricaY(1.0);
+		r.setMetricaY(29.0);
 		r.setmetricaYOperator(">");
 		r.setLogicalOperator("OR");
 		teste.codeSmellIds(r, r.getMetricaXString(), r.getMetricaYString());		
 		List<String> expected_list = new ArrayList<>();
-		expected_list.add("false");
-		expected_list.add("false");
-		expected_list.add("true");
-		expected_list.add("true");
 		expected_list.add("true");
 		expected_list.add("true");
 		expected_list.add("true");
 		expected_list.add("false");
 		expected_list.add("false");
+		expected_list.add("false");
+		expected_list.add("false");
+		expected_list.add("true");
+		expected_list.add("true");
 	    
 	    assertEquals(expected_list,teste.getResultadosBool());
 	}
