@@ -1,17 +1,16 @@
 package CodeSmell.Project;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import org.junit.jupiter.api.BeforeAll;
 
 import codesmellservice.Rule;
 
-class RuleTest {
-
+public class RuleTest {
 	@Test
-	public void setRegra() {
+	public void testSetRegra() {
 		Rule regra=new Rule("","","");
 		regra.setNomeRegra("BOMDIA");
 		regra.setCodeSmell("is_long_method");
