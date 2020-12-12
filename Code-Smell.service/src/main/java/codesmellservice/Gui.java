@@ -162,6 +162,7 @@ public class Gui {
 		final JPanel defeitosPanel = new JPanel(new BorderLayout(hGap,vGap));
 
 		JTextField bemVindo = new JTextField("Bem Vindo!");
+
 		showcase.add(bemVindo);
 		frame.add(showcase, BorderLayout.CENTER);
 
