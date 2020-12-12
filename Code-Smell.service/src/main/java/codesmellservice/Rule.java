@@ -1,10 +1,10 @@
 package codesmellservice;
 
 /**
- * <h1>Rule</h1>
- * A classe Rule é como o nome indica a classe da regra que vai ser utilizada para fazer a deteção de defeitos.
  * 
- * @author Gonçalo Morgado
+ * A classe Rule e como o nome indica a classe da regra que vai ser utilizada para fazer a detecao de defeitos.
+ * 
+ * @author Goncalo Morgado
  * @since 2020-12-10
  */
 
@@ -20,12 +20,12 @@ public class Rule {
 	private String stringMetricaY;
 
 	/**
-	 * Este é o construtor da classe Rule que inicia uma regra não definida inicialmente.
+	 * Este e o construtor da classe Rule que inicia uma regra nao definida inicialmente.
 	 * @param codeSmell A regra pede um codeSmell ser iniciada.
 	 * @param stringMetricaX A regra pede uma string para ser iniciada.
 	 * @param stringMetricaY A regra pede uma string para ser iniciada.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
 	public Rule(String codeSmell, String stringMetricaX, String stringMetricaY) {
@@ -41,10 +41,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método get para dar a stringMetricaX da regra.
-	 * @return retorna uma string correspondente à stringMetricaX da regra.
+	 * Metodo get para dar a stringMetricaX da regra.
+	 * @return retorna uma string correspondente a stringMetricaX da regra.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 * 
 	 */
@@ -53,10 +53,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método get para dar a stringMetricaY da regra.
-	 * @return retorna uma string correspondente à stringMetricaY da regra.
+	 * Metodo get para dar a stringMetricaY da regra.
+	 * @return retorna uma string correspondente a stringMetricaY da regra.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 * 
 	 */
@@ -65,10 +65,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método set para mudar a stringMetricaX da regra.
-	 * @param s O método pede uma string para trocar o valor de stringMetricaX.
+	 * Metodo set para mudar a stringMetricaX da regra.
+	 * @param s O metodo pede uma string para trocar o valor de stringMetricaX.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 * 
 	 */
@@ -77,10 +77,11 @@ public class Rule {
 	}
 
 	/**
-	 * Método set para mudar a stringMetricaY da regra.
-	 * @param s O método pede uma string para trocar o valor de stringMetricaY.
+	 * Metodo set para mudar a stringMetricaY da regra.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @param s O metodo pede uma string para trocar o valor de stringMetricaY.
+	 * 
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 * 
 	 */
@@ -89,10 +90,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método set para mudar o MetricaXOperator da regra.
-	 * @param s O método pede uma string para trocar o valor de MetricaXOperator.
+	 * Metodo set para mudar o MetricaXOperator da regra.
+	 * @param operator O metodo pede uma string para trocar o valor de MetricaXOperator.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 * 
 	 */
@@ -101,10 +102,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método set para mudar o MetricaYOperator da regra.
-	 * @param s O método pede uma string para trocar o valor de MetricaYOperator.
+	 * Metodo set para mudar o MetricaYOperator da regra.
+	 * @param operator O metodo pede uma string para trocar o valor de MetricaYOperator.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 * 
 	 */
@@ -113,10 +114,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método get para dar o MetricaXOperator da regra.
-	 * @result retorna uma string correspondente à MetricaXOperator da regra.
+	 * Metodo get para dar o MetricaXOperator da regra.
+	 * @return retorna uma string correspondente a MetricaXOperator da regra.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 * 
 	 */
@@ -125,10 +126,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método get para dar o MetricaYOperator da regra.
-	 * @result retorna uma string correspondente à MetricaYOperator da regra.
+	 * Metodo get para dar o MetricaYOperator da regra.
+	 * @return retorna uma string correspondente a MetricaYOperator da regra.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 * 
 	 */
@@ -137,10 +138,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método set para mudar o codeSmell da regra.
-	 * @param s O método pede uma string para trocar o valor de codeSmell.
+	 * Metodo set para mudar o codeSmell da regra.
+	 * @param smell O metodo pede uma string para trocar o valor de codeSmell.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 * 
 	 */
@@ -149,10 +150,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método get para dar o codeSmell da regra.
-	 * @result O método dá uma string correspondente ao codesmell da regra.
+	 * Metodo get para dar o codeSmell da regra.
+	 * @return O metodo da uma string correspondente ao codesmell da regra.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
 	public String getCodeSmell() {
@@ -160,10 +161,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método get para dar o nome da regra.
-	 * @result O método dá uma string correspondente ao nome da regra.
+	 * Metodo get para dar o nome da regra.
+	 * @return O metodo da uma string correspondente ao nome da regra.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
 	public String getNomeRegra() {
@@ -171,10 +172,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método set para mudar o nome da regra.
-	 * @param s O método pede uma string para trocar o valor nome.
+	 * Metodo set para mudar o nome da regra.
+	 * @param s O metodo pede uma string para trocar o valor nome.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
 	public void setNomeRegra(String s) {
@@ -182,10 +183,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método get para dar a metricaX da regra.
-	 * @result O método dá um double correspondente à metricaX da regra.
+	 * Metodo get para dar a metricaX da regra.
+	 * @return O metodo da um double correspondente a metricaX da regra.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
 	public double getMetricaX() {
@@ -193,10 +194,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método set para mudar a metricaX da regra.
-	 * @param valor O método pede um double para trocar o valor da metricaX.
+	 * Metodo set para mudar a metricaX da regra.
+	 * @param valor O metodo pede um double para trocar o valor da metricaX.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
 	public void setMetricaX(double valor) {
@@ -204,10 +205,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método get para dar a metricaY da regra.
-	 * @result O método dá um double correspondente à metricaY da regra.
+	 * Metodo get para dar a metricaY da regra.
+	 * @return O metodo da um double correspondente a metricaY da regra.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
 	public double getMetricaY() {
@@ -215,10 +216,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método set para mudar a metricaY da regra.
-	 * @param valor O método pede um double para trocar o valor da metricaY.
+	 * Metodo set para mudar a metricaY da regra.
+	 * @param valor O metodo pede um double para trocar o valor da metricaY.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
 	public void setMetricaY(double valor) {
@@ -226,10 +227,10 @@ public class Rule {
 	}
 
 	/**
-	 * Método get para dar a metricaX da regra.
-	 * @result O método dá uma string correspondente ao logicalOperator da regra.
+	 * Metodo get para dar a metricaX da regra.
+	 * @return O metodo da uma string correspondente ao logicalOperator da regra.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
 	public String getLogicalOperator() {
@@ -237,21 +238,21 @@ public class Rule {
 	}
 
 	/**
-	 * Método set para mudar a logicalOperator da regra.
-	 * @param valor O método pede um double para trocar o valor do logicalOperator.
+	 * Metodo set para mudar a logicalOperator da regra.
+	 * @param logical_operator O metodo pede um double para trocar o valor do logicalOperator.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
-	public void setLogicalOperator(String s) {
-		logicalOperator=s;
+	public void setLogicalOperator(String logical_operator) {
+		logicalOperator=logical_operator;
 	}
 
 	/**
-	 * Método para descrever a regra com as suas informações numa String
-	 * @result O método retorna uma string com todos os parametros da regra devidamente identificados.
+	 * Metodo para descrever a regra com as suas informacoes numa String
+	 * @return O metodo retorna uma string com todos os parametros da regra devidamente identificados.
 	 * 
-	 * @author Gonçalo Morgado
+	 * @author Goncalo Morgado
 	 * @since 2020-12-10
 	 */
 	public String toString() {

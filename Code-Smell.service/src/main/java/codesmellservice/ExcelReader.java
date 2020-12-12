@@ -14,9 +14,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
- * <h1>ExcelReader<h1>
- * A classe ExcelReader trata da conversão do conteudo de um ficheiro excel para uma matriz de Strings
- * de maneira a poder ser intrepertado numa JTable posteriormente no GUI. 
+ * 
+ * A classe ExcelReader trata da conversao do conteudo de um ficheiro excel para uma matriz de Strings
+ * de maneira a poder ser interpretado numa JTable posteriormente no GUI. 
  * 
  * @author Hugo Silva
  * @since 2020-12-10
@@ -29,9 +29,9 @@ public class ExcelReader {
 	private String[] columnNames;
 	
 	/**
-	 * O construtor da classe ExcelReader localiza a informação necessária da folha Excel e altera
-	 * o valor dos seus parametros para poder traduzir a informação da folha Excel para a matriz de strings data.
-	 * @param fileName O ExcelReader pede um fileName que só irá funcionar para tradução se for um ficheiro excel.
+	 * O construtor da classe ExcelReader localiza a informacao necessaria da folha Excel e altera
+	 * o valor dos seus parametros para poder traduzir a informacao da folha Excel para a matriz de strings data.
+	 * @param fileName O ExcelReader pede um fileName que so ira funcionar para traducao se for um ficheiro excel.
 	 * 
 	 * @author Hugo Silva
 	 * @since 2020-12-10
@@ -58,8 +58,8 @@ public class ExcelReader {
 	}
 	
 	/**
-	 * Método get para obter os dados do ficheiro Excel
-	 * @results devolve uma matriz de strings com a informação dos dados do ficheiro Excel
+	 * Metodo get para obter os dados do ficheiro Excel
+	 * @return devolve uma matriz de strings com a informacao dos dados do ficheiro Excel
 	 * 
 	 * @author Hugo Silva
 	 * @since 2020-12-10
@@ -70,8 +70,8 @@ public class ExcelReader {
 	}
 	
 	/**
-	 * Método get para obter os nomes das colunas.
-	 * @results devolve um vetor de strings com o nome da cada coluna do ficheiro Excel.
+	 * Metodo get para obter os nomes das colunas.
+	 * @return devolve um vetor de strings com o nome da cada coluna do ficheiro Excel.
 	 * 
 	 * @author Hugo Silva
 	 * @since 2020-12-10
@@ -82,8 +82,15 @@ public class ExcelReader {
 	}
 
 	/**
-	 * Método para obter o numero de linhas do ficheiro Excel (incluindo linha dos nomes das colunas).
-	 * @results devolve um inteiro com o número do linhas do ficheiro Excel.
+	 * Metodo para obter o numero de linhas do ficheiro Excel (incluindo linha dos nomes das colunas).
+	 * 
+	 * @throws IOException se o ficheiro nao conseguir ser lido
+	 * 
+	 * @param inputStream argumento necessario para ler a folha do ficheiro excel.
+	 * @param workbook argumento necessario para entrar na folha do ficheiro excel.
+	 * @param firstSheet argumento necessario para entrar na folha do ficheiro excel.
+	 * 
+	 * @return devolve um inteiro com o numero do linhas do ficheiro Excel.
 	 * 
 	 * @author Hugo Silva
 	 * @since 2020-12-10
@@ -94,8 +101,16 @@ public class ExcelReader {
 	}
 
 	/**
-	 * Método para obter o numero de colunas do ficheiro Excel.
-	 * @results devolve um inteiro com o número de colunas do ficheiro Excel.
+	 * Metodo para obter o numero de colunas do ficheiro Excel.
+	 * 
+	 * 
+	 * @throws IOException se o ficheiro nao conseguir ser lido
+	 * 
+	 * @param inputStream argumento necessario para ler a folha do ficheiro excel.
+	 * @param workbook argumento necessario para entrar na folha do ficheiro excel.
+	 * @param firstSheet argumento necessario para entrar na folha do ficheiro excel.
+	 * 
+	 * @return devolve um inteiro com o numero de colunas do ficheiro Excel.
 	 * 
 	 * @author Hugo Silva
 	 * @since 2020-12-10
@@ -109,11 +124,13 @@ public class ExcelReader {
 	}
 	
 	/**
-	 * Método para obter os nomes das colunas.
-	 * @param inputStream argumento necessário para ler a folha do ficheiro excel.
-	 * @param workbook argumento necessário para entrar na folha do ficheiro excel.
-	 * @param firstSheet argumento necessário para entrar na folha do ficheiro excel.
-	 * @results devolve um vetor de strings com o nome da cada coluna do ficheiro Excel.
+	 * Metodo para obter os nomes das colunas.
+	 * 
+	 * @throws IOException se o ficheiro nao conseguir ser lido
+	 * @param inputStream argumento necessario para ler a folha do ficheiro excel.
+	 * @param workbook argumento necessario para entrar na folha do ficheiro excel.
+	 * @param firstSheet argumento necessario para entrar na folha do ficheiro excel.
+	 * @return devolve um vetor de strings com o nome da cada coluna do ficheiro Excel.
 	 * 
 	 * @author Hugo Silva
 	 * @since 2020-12-10
@@ -141,10 +158,11 @@ public class ExcelReader {
 	}
 
 	/**
-	 * Método para traduzir os dados do ficheiro excel para a matriz de strings data.
-	 * @param inputStream argumento necessário para ler a folha do ficheiro excel.
-	 * @param workbook argumento necessário para entrar na folha do ficheiro excel.
-	 * @param firstSheet argumento necessário para entrar na folha do ficheiro excel.
+	 * Metodo para traduzir os dados do ficheiro excel para a matriz de strings data.
+	 * @throws IOException se o ficheiro nao conseguir ser lido
+	 * @param inputStream argumento necessario para ler a folha do ficheiro excel.
+	 * @param workbook argumento necessario para entrar na folha do ficheiro excel.
+	 * @param firstSheet argumento necessario para entrar na folha do ficheiro excel.
 	 * 
 	 * @author Hugo Silva
 	 * @since 2020-12-10
@@ -186,9 +204,9 @@ public class ExcelReader {
 		}
 	}
 	/**
-	 * Método para obter os dados de uma coluna.
-	 * @param columnName O método precisa do nome da coluna que se pretende analizar.
-	 * @results devolve uma lista de strings com os dados da coluna pedida como argumento.
+	 * Metodo para obter os dados de uma coluna.
+	 * @param columnName O metodo precisa do nome da coluna que se pretende analizar.
+	 * @return devolve uma lista de strings com os dados da coluna pedida como argumento.
 	 * 
 	 * @author Hugo Silva
 	 * @since 2020-12-10

@@ -21,10 +21,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
- * <h1>GUI</h1>
- * O GUI representa a interface na qual o objetivo do trabalho é implementado, ou seja 
- * trata da representação visual do código implementado nas outras classes para o fim 
- * de visualização de defeitos detetados.
+ * 
+ * O GUI representa a interface na qual o objetivo do trabalho e implementado, ou seja 
+ * trata da representacao visual do codigo implementado nas outras classes para o fim 
+ * de visualizacao de defeitos detetados.
  * 
  * @author Francisco Nunes
  * @since 2020-12-10
@@ -78,10 +78,13 @@ public class Gui {
 	private JPanel teste_east = new JPanel();
 
 	/**
-	 * Este é o método construtor do GUI.
+	 * Este e o metodo construtor do GUI.
+	 * 
+	 * @throws IOException se o ficheiro nao conseguir ser lido
+	 * @throws ClassNotFoundException ahm...
 	 * @param excelReader O GUI pede um objeto do tipo ExcelReader para ser iniciado.
 	 * @param listaRegras O GUI pede um objeto do tipo RuelSet para ser iniciado.
-	 * Neste construtor são iniciados todos os atributos, é criada a JFrame que 
+	 * Neste construtor sao iniciados todos os atributos, e criada a JFrame que 
 	 * vai receber o Layout inicial com o addFrameContent().
 	 * 
 	 * @author Francisco Nunes
@@ -106,32 +109,32 @@ public class Gui {
 	}
 
 	/**
-	 * Neste método são tratadas todas as alterações fruto da interação do utilizador com o GUI.
+	 * Neste metodo sao tratadas todas as alteracoes fruto da interacao do utilizador com o GUI.
 	 * <p>
-	 * Dentro deste método existem vários butões que interagem diretamente com o GUI alterando
+	 * Dentro deste metodo existem varios butoes que interagem diretamente com o GUI alterando
 	 * o JPanel mostrado (i.e. showExcel, regras, detetarDefeitos) e outros que servem para
-	 * introduzir valores criando regras (criar, criarRegra e lista) ou para a deteção de
+	 * introduzir valores criando regras (criar, criarRegra e lista) ou para a detecao de
 	 * defeitos (filtrar e Results).
 	 * <p>
-	 * Os botões showExcel,regras e detetarDefeitos são utilizados para fazer a troca de JPanel na JFrame 
-	 * para mostrar o conteudo respetivo de cada área.
+	 * Os botoes showExcel,regras e detetarDefeitos sao utilizados para fazer a troca de JPanel na JFrame 
+	 * para mostrar o conteudo respetivo de cada area.
 	 * <p>
-	 * O botão criarRegra abre uma JDialog onde é possivel ser criada uma regra, tendo JComboBox
+	 * O botao criarRegra abre uma JDialog onde e possivel ser criada uma regra, tendo JComboBox
 	 * e JTextField para o efeito. A JCombobox inicial utiliza o codeSm para atualizar as escolhas
-	 * possíveis nas outras JCombobox em face à opção escolhida na inicial.
+	 * possíveis nas outras JCombobox em face a opcao escolhida na inicial.
 	 * <p>
-	 * O botão criar ao ser clicado, lê os contéudos de cada JCombobox e JTextField no JDialog e 
-	 * cria uma regra com essa informação, colocando-a posteriormente na JList listaRegras.
+	 * O botao criar ao ser clicado, le os conteudos de cada JCombobox e JTextField no JDialog e 
+	 * cria uma regra com essa informacao, colocando-a posteriormente na JList listaRegras.
 	 * <p>
-	 * O botão lista funciona ao clciar uma regra existente na listaRegras 2 vezes, levando
-	 * o utilizador para a JDialog que foi utilizada para a criar, com as informações dessa mesma regra
-	 * nos lugares respetivos para ser possível editá-la. O botão criar que aparecia na criação da regra
-	 * é agora trocado pelo botão atualizar.
+	 * O botao lista funciona ao clciar uma regra existente na listaRegras 2 vezes, levando
+	 * o utilizador para a JDialog que foi utilizada para a criar, com as informacoes dessa mesma regra
+	 * nos lugares respetivos para ser possível edita-la. O botao criar que aparecia na criacao da regra
+	 * e agora trocado pelo botao atualizar.
 	 * <p>
-	 * O botão filtrar abre uma JDialog com uma única JCombobox a pedir a regra a ser utilizada para filtrar
-	 * os MethodIDs que têm CodeSmells.
+	 * O botao filtrar abre uma JDialog com uma unica JCombobox a pedir a regra a ser utilizada para filtrar
+	 * os MethodIDs que tem CodeSmells.
 	 * <p>
-	 * O botão Results coloca os resultados filtrados apartir da regra escolhida na JList listaMethodfilter e 
+	 * O botao Results coloca os resultados filtrados apartir da regra escolhida na JList listaMethodfilter e 
 	 * altera os valores dos indicadores de qualidade face aos resultados.
 	 * 
 	 * 
@@ -198,7 +201,7 @@ public class Gui {
 						|| !metrica2string.isEmpty() && metrica1string.isEmpty() && !operadorLogicoValue.isEmpty() || 
 						metrica1string.isEmpty() && metrica2string.isEmpty() || !metrica1string.isEmpty() && !metrica2string.isEmpty() && operadorLogicoValue.isEmpty() ){
 					d.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					throw new IllegalArgumentException("Critérios inválidos");
+					throw new IllegalArgumentException("Criterios invalidos");
 
 				}else {
 					Rule regra=new Rule(codeSmellValue, metrica1string, metrica2string);
@@ -256,7 +259,7 @@ public class Gui {
 						|| !metrica2string.isEmpty() && metrica1string.isEmpty() && !operadorLogicoValue.isEmpty() || 
 						metrica1string.isEmpty() && metrica2string.isEmpty() || !metrica1string.isEmpty() && !metrica2string.isEmpty() && operadorLogicoValue.isEmpty() ) {
 					d.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					throw new IllegalArgumentException("Critérios inválidos");
+					throw new IllegalArgumentException("Criterios invalidos");
 				}else {
 
 					aux.setMetricaXString(metrica1string); aux.setMetricaYString(metrica2string);
@@ -368,7 +371,7 @@ public class Gui {
 					metricY.setSelectedItem(aux.getMetricaYString());
 
 
-					JLabel operadorLogicoLabel = new JLabel("Operador Lógico");
+					JLabel operadorLogicoLabel = new JLabel("Operador Logico");
 					String operadoresLogico[] = {"", "AND", "OR"};
 					operadorLogico = new JComboBox<String>(operadoresLogico);
 					operadorLogico.setBounds(50, 50, 90, 20);
@@ -466,7 +469,7 @@ public class Gui {
 	
 					metrica2 = new JTextField();
 	
-					JLabel operadorLogicoLabel = new JLabel("Operador Lógico");
+					JLabel operadorLogicoLabel = new JLabel("Operador Logico");
 					String operadoresLogico[] = {"", "AND", "OR"};
 					operadorLogico = new JComboBox<String>(operadoresLogico);
 					operadorLogico.setBounds(50, 50, 90, 20);
@@ -747,7 +750,7 @@ public class Gui {
 	}
 
 	/**
-	 * Este método inicializa o GUI.
+	 * Este metodo inicializa o GUI.
 	 * 
 	 * @author Francisco Nunes
 	 * @since 2020-12-10
@@ -761,7 +764,7 @@ public class Gui {
 	}
 
 	/**
-	 * Este método coloca a aplicação do GUI no centro do écra.
+	 * Este metodo coloca a aplicacao do GUI no centro do ecra.
 	 * 
 	 * @author Francisco Nunes
 	 * @since 2020-12-10
